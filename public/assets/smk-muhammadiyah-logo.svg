@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Text Paths for Curving -->
+    <!-- Top Arc for SMK MUHAMMADIYAH (Radius ~158) -->
+    <path id="smkArcTop" d="M 85 250 A 165 165 0 0 1 415 250" fill="none" />
+    <!-- Bottom Arc for BAWANG - BATANG (Radius ~162) -->
+    <path id="smkArcBottom" d="M 418 250 A 168 168 0 0 1 82 250" fill="none" />
+
+    <!-- Glow filters for Atom tech icons -->
+    <filter id="atomGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 1. Outer 12-petaled badge with exact double outline -->
+  <!-- Outer black stroke -->
+  <path d="M 201.86 70.34 C 216.66 50.77, 231.25 11.74, 250.00 14.00 C 268.75 11.74, 283.34 50.77, 298.14 70.34 C 320.74 60.79, 352.89 34.28, 368.00 45.62 C 385.37 53.03, 378.49 94.13, 381.52 118.48 C 405.87 121.51, 446.97 114.63, 454.38 132.00 C 465.72 147.11, 439.21 179.26, 429.66 201.86 C 449.23 216.66, 488.26 231.25, 486.00 250.00 C 488.26 268.75, 449.23 283.34, 429.66 298.14 C 439.21 320.74, 465.72 352.89, 454.38 368.00 C 446.97 385.37, 405.87 378.49, 381.52 381.52 C 378.49 405.87, 385.37 446.97, 368.00 454.38 C 352.89 465.72, 320.74 439.21, 298.14 429.66 C 283.34 449.23, 268.75 488.26, 250.00 486.00 C 231.25 488.26, 216.66 449.23, 201.86 429.66 C 179.26 439.21, 147.11 465.72, 132.00 454.38 C 114.63 446.97, 121.51 405.87, 118.48 381.52 C 94.13 378.49, 53.03 385.37, 45.62 368.00 C 34.28 352.89, 60.79 320.74, 70.34 298.14 C 50.77 283.34, 11.74 268.75, 14.00 250.00 C 11.74 231.25, 50.77 216.66, 70.34 201.86 C 60.79 179.26, 34.28 147.11, 45.62 132.00 C 53.03 114.63, 94.13 121.51, 118.48 118.48 C 121.51 94.13, 114.63 53.03, 132.00 45.62 C 147.11 34.28, 179.26 60.79, 201.86 70.34 Z" fill="#5450F7" stroke="#181818" stroke-width="14" stroke-linejoin="round" />
+  <!-- Inner chartreuse/yellow-green outline -->
+  <path d="M 201.86 70.34 C 216.66 50.77, 231.25 11.74, 250.00 14.00 C 268.75 11.74, 283.34 50.77, 298.14 70.34 C 320.74 60.79, 352.89 34.28, 368.00 45.62 C 385.37 53.03, 378.49 94.13, 381.52 118.48 C 405.87 121.51, 446.97 114.63, 454.38 132.00 C 465.72 147.11, 439.21 179.26, 429.66 201.86 C 449.23 216.66, 488.26 231.25, 486.00 250.00 C 488.26 268.75, 449.23 283.34, 429.66 298.14 C 439.21 320.74, 465.72 352.89, 454.38 368.00 C 446.97 385.37, 405.87 378.49, 381.52 381.52 C 378.49 405.87, 385.37 446.97, 368.00 454.38 C 352.89 465.72, 320.74 439.21, 298.14 429.66 C 283.34 449.23, 268.75 488.26, 250.00 486.00 C 231.25 488.26, 216.66 449.23, 201.86 429.66 C 179.26 439.21, 147.11 465.72, 132.00 454.38 C 114.63 446.97, 121.51 405.87, 118.48 381.52 C 94.13 378.49, 53.03 385.37, 45.62 368.00 C 34.28 352.89, 60.79 320.74, 70.34 298.14 C 50.77 283.34, 11.74 268.75, 14.00 250.00 C 11.74 231.25, 50.77 216.66, 70.34 201.86 C 60.79 179.26, 34.28 147.11, 45.62 132.00 C 53.03 114.63, 94.13 121.51, 118.48 118.48 C 121.51 94.13, 114.63 53.03, 132.00 45.62 C 147.11 34.28, 179.26 60.79, 201.86 70.34 Z" fill="none" stroke="#D2E616" stroke-width="6" stroke-linejoin="round" />
+
+  <!-- 2. Arched Text (Pure White, Bold, All Caps) -->
+  <!-- SMK MUHAMMADIYAH (Top) -->
+  <text fill="#FFFFFF" font-family="'Arial Black', Impact, 'Segoe UI Black', sans-serif" font-weight="900" font-size="28.5" letter-spacing="2.8" text-anchor="middle">
+    <textPath href="#smkArcTop" startOffset="50%">
+      SMK MUHAMMADIYAH
+    </textPath>
+  </text>
+
+  <!-- BAWANG - BATANG (Bottom) -->
+  <text fill="#FFFFFF" font-family="'Arial Black', Impact, 'Segoe UI Black', sans-serif" font-weight="900" font-size="27.5" letter-spacing="3.2" text-anchor="middle">
+    <textPath href="#smkArcBottom" startOffset="50%">
+      BAWANG - BATANG
+    </textPath>
+  </text>
+
+  <!-- 3. Left Atom Science/Tech Symbol (at 9 o'clock) -->
+  <g transform="translate(68, 250)" filter="url(#atomGlow)">
+    <!-- Cyan glow backdrop -->
+    <circle cx="0" cy="0" r="16" fill="#2563EB" opacity="0.6" />
+    <!-- 3 Orbital Ellipses -->
+    <ellipse cx="0" cy="0" rx="19" ry="7" fill="none" stroke="#FFFFFF" stroke-width="1.8" transform="rotate(30)" />
+    <ellipse cx="0" cy="0" rx="19" ry="7" fill="none" stroke="#FFFFFF" stroke-width="1.8" transform="rotate(-30)" />
+    <ellipse cx="0" cy="0" rx="19" ry="7" fill="none" stroke="#FFFFFF" stroke-width="1.8" transform="rotate(90)" />
+    <!-- Nucleus Circle -->
+    <circle cx="0" cy="0" r="6" fill="#1D4ED8" stroke="#FFFFFF" stroke-width="1.2" />
+    <!-- Inside Nucleus: USB Trident Technology Icon -->
+    <path d="M 0 3.5 L 0 -2.5 M -2.2 -0.5 L 0 1 L 2.2 -0.5 M 0 -3.5 L 0 -2.5" stroke="#FFFFFF" stroke-width="0.8" fill="none" />
+    <circle cx="0" cy="-3.8" r="0.8" fill="#FFFFFF" />
+    <rect x="-3" y="-2" width="1.5" height="1.5" fill="#FFFFFF" />
+    <polygon points="2.8,-2 3.8,-0.5 1.8,-0.5" fill="#FFFFFF" />
+  </g>
+
+  <!-- 4. Right Atom Science/Tech Symbol (at 3 o'clock) -->
+  <g transform="translate(432, 250)" filter="url(#atomGlow)">
+    <!-- Cyan glow backdrop -->
+    <circle cx="0" cy="0" r="16" fill="#2563EB" opacity="0.6" />
+    <!-- 3 Orbital Ellipses -->
+    <ellipse cx="0" cy="0" rx="19" ry="7" fill="none" stroke="#FFFFFF" stroke-width="1.8" transform="rotate(30)" />
+    <ellipse cx="0" cy="0" rx="19" ry="7" fill="none" stroke="#FFFFFF" stroke-width="1.8" transform="rotate(-30)" />
+    <ellipse cx="0" cy="0" rx="19" ry="7" fill="none" stroke="#FFFFFF" stroke-width="1.8" transform="rotate(90)" />
+    <!-- Nucleus Circle -->
+    <circle cx="0" cy="0" r="6" fill="#1D4ED8" stroke="#FFFFFF" stroke-width="1.2" />
+    <!-- Inside Nucleus: USB Trident Technology Icon -->
+    <path d="M 0 3.5 L 0 -2.5 M -2.2 -0.5 L 0 1 L 2.2 -0.5 M 0 -3.5 L 0 -2.5" stroke="#FFFFFF" stroke-width="0.8" fill="none" />
+    <circle cx="0" cy="-3.8" r="0.8" fill="#FFFFFF" />
+    <rect x="-3" y="-2" width="1.5" height="1.5" fill="#FFFFFF" />
+    <polygon points="2.8,-2 3.8,-0.5 1.8,-0.5" fill="#FFFFFF" />
+  </g>
+
+  <!-- 5. Mechanical Gear (Roda Gigi) in Silver/Gray -->
+  <!-- Gear Teeth and Ring -->
+  <path d="M 368.00 250.00 L 384.66 259.53 L 382.61 275.30 L 364.06 280.24 L 359.02 295.16 L 370.76 310.34 L 362.83 324.12 L 343.80 321.59 L 333.44 333.44 L 338.48 351.96 L 325.88 361.66 L 309.27 352.04 L 295.16 359.02 L 292.72 378.06 L 277.38 382.20 L 265.71 366.95 L 250.00 368.00 L 240.47 384.66 L 224.70 382.61 L 219.76 364.06 L 204.84 359.02 L 189.66 370.76 L 175.88 362.83 L 178.41 343.80 L 166.56 333.44 L 148.04 338.48 L 138.34 325.88 L 147.96 309.27 L 140.98 295.16 L 121.94 292.72 L 117.80 277.38 L 133.05 265.71 L 132.00 250.00 L 115.34 240.47 L 117.39 224.70 L 135.94 219.76 L 140.98 204.84 L 129.24 189.66 L 137.17 175.88 L 156.20 178.41 L 166.56 166.56 L 161.52 148.04 L 174.12 138.34 L 190.73 147.96 L 204.84 140.98 L 207.28 121.94 L 222.62 117.80 L 234.29 133.05 L 250.00 132.00 L 259.53 115.34 L 275.30 117.39 L 280.24 135.94 L 295.16 140.98 L 310.34 129.24 L 324.12 137.17 L 321.59 156.20 L 333.44 166.56 L 351.96 161.52 L 361.66 174.12 L 352.04 190.73 L 359.02 204.84 L 378.06 207.28 L 382.20 222.62 L 366.95 234.29 L 368.00 250.00 Z" fill="#C2C2C8" stroke="#FFFFFF" stroke-width="2" />
+  <!-- Inner White Highlight Ring -->
+  <circle cx="250" cy="250" r="118" fill="none" stroke="#E2E8F0" stroke-width="1.5" />
+  <!-- Inner Dark Blue/Black Core of the Gear -->
+  <circle cx="250" cy="250" r="108" fill="#0A0A0C" stroke="#FFFFFF" stroke-width="2" />
+
+  <!-- 6. Muhammadiyah Solar Radiant Rays (Surya Muhammadiyah) -->
+  <g>
+    <polygon points="288.0,248.1 356.0,250.0 288.0,251.9" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="287.1,258.0 338.9,273.8 286.2,261.6" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="283.8,267.4 341.8,303.0 281.9,270.6" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="278.2,275.5 315.1,315.1 275.5,278.2" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="270.6,281.9 303.0,341.8 267.4,283.8" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="261.6,286.2 273.8,338.9 258.0,287.1" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="251.9,288.0 250.0,356.0 248.1,288.0" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="242.0,287.1 226.2,338.9 238.4,286.2" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="232.6,283.8 197.0,341.8 229.4,281.9" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="224.5,278.2 184.9,315.1 221.8,275.5" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="218.1,270.6 158.2,303.0 216.2,267.4" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="213.8,261.6 161.1,273.8 212.9,258.0" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="212.0,251.9 144.0,250.0 212.0,248.1" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="212.9,242.0 161.1,226.2 213.8,238.4" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="216.2,232.6 158.2,197.0 218.1,229.4" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="221.8,224.5 184.9,184.9 224.5,221.8" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="229.4,218.1 197.0,158.2 232.6,216.2" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="238.4,213.8 226.2,161.1 242.0,212.9" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="248.1,212.0 250.0,144.0 251.9,212.0" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="258.0,212.9 273.8,161.1 261.6,213.8" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="267.4,216.2 303.0,158.2 270.6,218.1" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="275.5,221.8 315.1,184.9 278.2,224.5" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="281.9,229.4 341.8,197.0 283.8,232.6" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+      <polygon points="286.2,238.4 338.9,226.2 287.1,242.0" fill="#000000" stroke="#FFFFFF" stroke-width="0.75" />
+  </g>
+
+  <!-- 7. Base Open Book / Rehal Silhouette with Blue Glowing Highlights -->
+  <g transform="translate(250, 312)">
+    <!-- Base black shape -->
+    <path d="M -64 28 C -42 22, -20 28, 0 15 C 20 28, 42 22, 64 28 L 64 36 C 42 32, 20 38, 0 25 C -20 38, -42 32, -64 36 Z" fill="#000000" />
+    <!-- Rehal / Book Stand Curves -->
+    <path d="M -58 26 C -50 -5, -42 -22, -28 -28 C -15 -32, -8 -18, -6 16 L 6 16 C 8 -18, 15 -32, 28 -28 C 42 -22, 50 -5, 58 26 Z" fill="#000000" stroke="#000000" stroke-width="2" />
+    <!-- Glowing blue/violet inner contour lines of the book/stand -->
+    <path d="M -48 24 C -42 -2, -34 -16, -24 -20 C -18 -22, -12 -12, -10 14" fill="none" stroke="#7C3AED" stroke-width="4" stroke-linecap="round" />
+    <path d="M 48 24 C 42 -2, 34 -16, 24 -20 C 18 -22, 12 -12, 10 14" fill="none" stroke="#7C3AED" stroke-width="4" stroke-linecap="round" />
+    <path d="M -48 24 C -42 -2, -34 -16, -24 -20 C -18 -22, -12 -12, -10 14" fill="none" stroke="#C4B5FD" stroke-width="1.8" stroke-linecap="round" />
+    <path d="M 48 24 C 42 -2, 34 -16, 24 -20 C 18 -22, 12 -12, 10 14" fill="none" stroke="#C4B5FD" stroke-width="1.8" stroke-linecap="round" />
+    <!-- Center spine notch -->
+    <line x1="0" y1="-8" x2="0" y2="24" stroke="#7C3AED" stroke-width="2" />
+  </g>
+
+  <!-- 8. Center White Circular Medallion -->
+  <circle cx="250" cy="245" r="36" fill="#FFFFFF" stroke="#000000" stroke-width="2" />
+
+  <!-- 9. Authentic Arabic Calligraphy "محمدية" (Muhammadiyah) -->
+  <g transform="translate(250, 246) scale(0.68)">
+    <!-- Calligraphic composition -->
+    <!-- Center main stroke: Muhammad & ya marbutah -->
+    <path d="M -26 12 C -24 3, -16 -4, -8 2 C -3 6, 2 5, 6 -1 C 12 -9, 21 -4, 23 6 C 24 13, 17 18, 8 16 C 0 15, -4 10, -8 13 C -14 17, -22 17, -26 12 Z" fill="#000000" />
+    <!-- Upper loop of Mim & Ha -->
+    <path d="M -14 -12 C -10 -22, 0 -22, 6 -14 C 9 -9, 5 -3, -2 -5 C -9 -7, -12 -6, -14 -12 Z" fill="#000000" />
+    <!-- Connected Dal upward terminal -->
+    <path d="M 3 -4 C 10 -12, 16 -16, 20 -10 C 23 -6, 22 2, 18 5 C 15 2, 13 0, 10 2 Z" fill="#000000" />
+    <!-- Shaddah and diacritical marks -->
+    <path d="M -6 -18 C -5 -22, -3 -22, -2 -19 C -1 -22, 1 -22, 2 -18" fill="none" stroke="#000000" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Two dots of Ya -->
+    <circle cx="-3" cy="22" r="2.2" fill="#000000" />
+    <circle cx="4" cy="22" r="2.2" fill="#000000" />
+    <!-- Accent flourish dot -->
+    <circle cx="16" cy="-16" r="2" fill="#000000" />
+    <!-- Additional calligraphic swashes -->
+    <path d="M -24 2 C -18 -8, -12 -8, -6 -2" fill="none" stroke="#000000" stroke-width="2.8" stroke-linecap="round" />
+  </g>
+</svg>

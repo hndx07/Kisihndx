@@ -1,0 +1,6 @@
+{
+  "name": "Aplikasi Kisi-Kisi & Kartu Soal - Kurikulum Merdeka & Deep Learning",
+  "description": "Aplikasi terintegrasi untuk penyusunan Data Master, Data Soal, Identitas Guru, Cetak Kartu Soal, Kisi-Kisi, dan Lampiran Soal berbasis Kurikulum Merdeka dan pendekatan Deep Learning.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
