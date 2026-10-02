@@ -62,6 +62,8 @@ export interface DataMasterItem {
   tingkatKesukaran: 'Mudah' | 'Sedang' | 'HOTS / Sukar';
 }
 
+export type MediaType = 'none' | 'image' | 'audio' | 'video' | 'embed';
+
 export interface DataSoalItem {
   no: number;
   tipeSoal?: TipePilihanGanda;
@@ -76,6 +78,12 @@ export interface DataSoalItem {
   kategoriLabel2?: string; // Label kolom 2 kategori (default: 'Salah')
   skor: number;
   pembahasan?: string;
+  // Media & Embed Stimulus (Gambar / Video / Suara):
+  mediaType?: MediaType;
+  mediaUrl?: string;
+  embedCode?: string;
+  mediaCaption?: string;
+  mediaPosition?: 'above' | 'below';
 }
 
 export interface KartuSoalValidation {
@@ -100,4 +108,5 @@ export type ActiveTab =
   | 'kartu'
   | 'kisi'
   | 'lampiran'
-  | 'cetak';
+  | 'cetak'
+  | 'media';

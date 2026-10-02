@@ -131,13 +131,21 @@ export const MainMenu: React.FC<MainMenuProps> = ({
                 </button>
               </div>
 
-              <div className="flex justify-center">
+              <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => onNavigate('soal')}
-                  className="w-full sm:w-2/3 bg-white hover:bg-slate-50 border-2 border-red-400 text-slate-900 font-bold text-xs py-3 px-3 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1 group"
+                  className="bg-white hover:bg-slate-50 border-2 border-red-400 text-slate-900 font-bold text-xs py-3 px-2 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1 group cursor-pointer"
                 >
                   <span className="text-[11px] font-extrabold group-hover:text-blue-700">DATA SOAL</span>
-                  <span className="text-[9px] text-slate-500 font-normal">50 Butir Soal & Kunci Jawaban</span>
+                  <span className="text-[9px] text-slate-500 font-normal">Tabel Butir & Opsi Jawaban</span>
+                </button>
+
+                <button
+                  onClick={() => onNavigate('media')}
+                  className="bg-white hover:bg-purple-50 border-2 border-purple-400 text-purple-950 font-bold text-xs py-3 px-2 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1 group cursor-pointer"
+                >
+                  <span className="text-[11px] font-extrabold group-hover:text-purple-700">MEDIA & EMBED SOAL</span>
+                  <span className="text-[9px] text-purple-800 font-normal">Gambar, Audio, Video & Iframe</span>
                 </button>
               </div>
             </div>

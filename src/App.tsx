@@ -10,6 +10,7 @@ import { KartuSoalView } from './components/KartuSoalView';
 import { KisiKisiView } from './components/KisiKisiView';
 import { LampiranKisiKisiView } from './components/LampiranKisiKisiView';
 import { NaskahSoalCetakView } from './components/NaskahSoalCetakView';
+import { MediaEditorView } from './components/MediaEditorView';
 import { IntegratedUploadModal } from './components/IntegratedUploadModal';
 import { DeepLearningAnalyzerModal } from './components/DeepLearningAnalyzerModal';
 import { exportToExcel, downloadTemplateExcel } from './utils/excelHelper';
@@ -25,6 +26,7 @@ import {
   ListTree, 
   FileText,
   Printer,
+  Image,
   RotateCcw,
   Check
 } from 'lucide-react';
@@ -69,6 +71,7 @@ export function App() {
 
   const [activeTab, setActiveTab] = useState<ActiveTab>('menu');
   const [currentSoalNo, setCurrentSoalNo] = useState<number>(1);
+  const [currentMediaNo, setCurrentMediaNo] = useState<number>(1);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isDeepLearningModalOpen, setIsDeepLearningModalOpen] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
@@ -182,6 +185,7 @@ export function App() {
     { id: 'identitas', label: 'Identitas Guru', icon: UserCheck },
     { id: 'master', label: 'Data Master', icon: Database },
     { id: 'soal', label: 'Data Soal', icon: HelpCircle },
+    { id: 'media', label: 'Media & Embed Soal', icon: Image },
     { id: 'kartu', label: 'Kartu Soal', icon: CreditCard },
     { id: 'kisi', label: 'Kisi-Kisi', icon: ListTree },
     { id: 'lampiran', label: 'Lampiran Soal', icon: FileText },
@@ -263,6 +267,16 @@ export function App() {
             >
               <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
               <span className="hidden md:inline">Deep Learning</span>
+            </button>
+
+            {/* Quick Media & Embed Button */}
+            <button
+              onClick={() => setActiveTab('media')}
+              className="bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition-colors cursor-pointer"
+              title="Buka Editor Media & Embed Soal (Gambar, Suara, Video)"
+            >
+              <Image className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Media & Embed</span>
             </button>
 
             {/* Excel Download button */}
@@ -368,6 +382,20 @@ export function App() {
               setCurrentSoalNo(no);
               setActiveTab('kartu');
             }}
+            onNavigateToMedia={(no) => {
+              setCurrentMediaNo(no);
+              setActiveTab('media');
+            }}
+          />
+        )}
+
+        {activeTab === 'media' && (
+          <MediaEditorView
+            soalList={soalList}
+            onUpdateSoalList={handleUpdateSoalList}
+            onBackToMenu={() => setActiveTab('menu')}
+            onNavigateToSoal={() => setActiveTab('soal')}
+            initialSoalNo={currentMediaNo}
           />
         )}
 

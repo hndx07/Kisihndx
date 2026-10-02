@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IdentitasSekolahGuru, DataSoalItem } from '../types';
 import { KurikulumMerdekaLogo, DeepLearningLogo } from './Logos';
+import { MediaStimulusRenderer } from './MediaStimulusRenderer';
 import { 
   ArrowLeft, 
   Printer, 
@@ -31,6 +32,7 @@ export const NaskahSoalCetakView: React.FC<NaskahSoalCetakViewProps> = ({
   const [mode, setMode] = useState<'siswa' | 'guru'>('siswa');
   const [columns, setColumns] = useState<'1' | '2'>('1');
   const [fontSize, setFontSize] = useState<'normal' | 'compact'>('normal');
+  const [includeMedia, setIncludeMedia] = useState<boolean>(true);
 
   const countSederhana = soalList.filter(s => (!s.tipeSoal || s.tipeSoal === 'PG_SEDERHANA')).length;
   const countMcma = soalList.filter(s => s.tipeSoal === 'PGK_MCMA').length;
@@ -108,6 +110,19 @@ export const NaskahSoalCetakView: React.FC<NaskahSoalCetakViewProps> = ({
               2 Kolom (Kompak)
             </button>
           </div>
+
+          {/* Toggle Media in Print */}
+          <button
+            onClick={() => setIncludeMedia(!includeMedia)}
+            className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer flex items-center gap-1 ${
+              includeMedia 
+                ? 'bg-sky-50 border-sky-300 text-sky-900 font-bold' 
+                : 'bg-slate-100 border-slate-300 text-slate-500'
+            }`}
+            title="Sertakan stimulus media (gambar/audio listening badge) pada lembar cetak"
+          >
+            <span>{includeMedia ? '✓ Media Cetak: Aktif' : 'Media Cetak: Sembunyi'}</span>
+          </button>
 
           <button
             onClick={() => window.print()}
@@ -273,6 +288,9 @@ export const NaskahSoalCetakView: React.FC<NaskahSoalCetakViewProps> = ({
                     <div className="font-semibold text-slate-900 leading-relaxed text-xs whitespace-pre-line">
                       {item.rumusanSoal}
                     </div>
+
+                    {/* Media Stimulus (Gambar / Audio / Video / Embed) */}
+                    <MediaStimulusRenderer soal={item} hideInPrint={!includeMedia} />
 
                     {/* Option Presentation 1: PG Sederhana (A sampai E) */}
                     {isSederhana && (

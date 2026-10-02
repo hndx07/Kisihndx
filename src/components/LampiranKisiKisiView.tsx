@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IdentitasSekolahGuru, DataSoalItem } from '../types';
 import { KurikulumMerdekaLogo } from './Logos';
+import { MediaStimulusRenderer } from './MediaStimulusRenderer';
 import { ArrowLeft, Printer, Upload, FileSpreadsheet, KeyRound, CheckCircle2 } from 'lucide-react';
 import { exportToExcel } from '../utils/excelHelper';
 
@@ -171,6 +172,9 @@ export const LampiranKisiKisiView: React.FC<LampiranKisiKisiViewProps> = ({
                       <p className="font-semibold text-slate-900 leading-relaxed text-xs whitespace-pre-line">
                         {item.rumusanSoal}
                       </p>
+
+                      {/* Stimulus Media / Embed */}
+                      <MediaStimulusRenderer soal={item} />
 
                       {/* 1. Format PG Sederhana (A sampai E) */}
                       {!isMcma && !isKategori && (

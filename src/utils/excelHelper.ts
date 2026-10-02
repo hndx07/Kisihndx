@@ -1,5 +1,5 @@
 import * as XLSX from 'xlsx';
-import { IdentitasSekolahGuru, DataMasterItem, DataSoalItem, JenjangTes, LevelKognitif, DeepLearningDimension, TipePilihanGanda } from '../types';
+import { IdentitasSekolahGuru, DataMasterItem, DataSoalItem, JenjangTes, LevelKognitif, DeepLearningDimension, TipePilihanGanda, MediaType } from '../types';
 
 export function exportToExcel(
   identitas: IdentitasSekolahGuru,
@@ -82,6 +82,9 @@ export function exportToExcel(
       'Pilihan D / Pernyataan 4',
       'Pilihan E / Pernyataan 5',
       'Kategori Respon (Kolom 1 / Kolom 2)',
+      'Tipe Media (Gambar/Audio/Video/Embed)',
+      'URL / Embed Code Media',
+      'Keterangan Media (Caption)',
       'Skor',
       'Pembahasan / Dimensi'
     ]
@@ -108,6 +111,9 @@ export function exportToExcel(
       s.pilihanD,
       s.pilihanE || '',
       kategoriLabel,
+      s.mediaType && s.mediaType !== 'none' ? s.mediaType : 'none',
+      s.embedCode || s.mediaUrl || '',
+      s.mediaCaption || '',
       s.skor,
       s.pembahasan || ''
     ]);
@@ -134,7 +140,13 @@ export function exportToExcel(
     ['Kunci Jawaban', 'Kunci 3 pernyataan berurutan (contoh: Benar, Salah, Benar atau B-S-B atau Sesuai, Tidak Sesuai, Sesuai)'],
     ['Pilihan A s/d C', 'Isi 3 pernyataan: Pilihan A = Pernyataan 1, Pilihan B = Pernyataan 2, Pilihan C = Pernyataan 3'],
     ['Pilihan D & E', 'Dapat dikosongkan untuk soal model kategori 3 pernyataan.'],
-    ['Kategori Respon', 'Default: "Benar / Salah" (atau "Sesuai / Tidak Sesuai", "Ya / Tidak")']
+    ['Kategori Respon', 'Default: "Benar / Salah" (atau "Sesuai / Tidak Sesuai", "Ya / Tidak")'],
+    ['', ''],
+    ['4. STIMULUS MULTIMEDIA & EMBED CODE (OPSIONAL):', ''],
+    ['Tipe Media', 'Pilih: "image" (Gambar), "audio" (Suara Listening), "video" (Video YouTube/MP4), atau "embed" (HTML Iframe)'],
+    ['URL / Embed Code', 'Dapat diisi URL langsung (https://...) atau kode HTML lengkap seperti <iframe src=...> / <img src=...>'],
+    ['Keterangan Media', 'Teks caption / judul stimulus yang muncul di bawah media.'],
+    ['Keamanan Cetak', 'Sistem otomatis mengamankan tata letak cetak dokumen naskah soal agar tidak rusak/overflow.']
   ];
   const wsPetunjuk = XLSX.utils.aoa_to_sheet(petunjukRows);
   XLSX.utils.book_append_sheet(wb, wsPetunjuk, 'PETUNJUK FORMAT TKA');
@@ -277,6 +289,41 @@ export async function parseExcelFile(file: File): Promise<{
       const skor = Number(row['Skor'] || (tipeSoal === 'PGK_MCMA' ? 3 : tipeSoal === 'PGK_KATEGORI' ? 3 : 2));
       const pembahasan = String(row['Pembahasan'] || row['Pembahasan / Dimensi'] || row['Pembahasan / Keterangan'] || row['Keterangan'] || '').trim();
 
+      // Media stimulus & embed code parsing
+      const mediaTypeRaw = String(row['Tipe Media (Gambar/Audio/Video/Embed)'] || row['Tipe Media'] || row['Jenis Media'] || row['Media'] || '').toLowerCase().trim();
+      let mediaType: MediaType = 'none';
+      if (mediaTypeRaw.includes('gambar') || mediaTypeRaw.includes('image') || mediaTypeRaw.includes('foto')) mediaType = 'image';
+      else if (mediaTypeRaw.includes('audio') || mediaTypeRaw.includes('suara') || mediaTypeRaw.includes('mp3') || mediaTypeRaw.includes('listening')) mediaType = 'audio';
+      else if (mediaTypeRaw.includes('video') || mediaTypeRaw.includes('youtube')) mediaType = 'video';
+      else if (mediaTypeRaw.includes('embed') || mediaTypeRaw.includes('iframe') || mediaTypeRaw.includes('html')) mediaType = 'embed';
+
+      const mediaCodeRaw = String(row['URL / Embed Code Media'] || row['Embed Code'] || row['URL Media'] || row['Kode Embed'] || row['Media Code'] || '').trim();
+      let mediaUrl: string | undefined = undefined;
+      let embedCode: string | undefined = undefined;
+      if (mediaCodeRaw && mediaCodeRaw !== '-') {
+        if (mediaCodeRaw.startsWith('<') && mediaCodeRaw.endsWith('>')) {
+          embedCode = mediaCodeRaw;
+          if (mediaType === 'none') {
+            if (mediaCodeRaw.includes('<img')) mediaType = 'image';
+            else if (mediaCodeRaw.includes('<audio')) mediaType = 'audio';
+            else if (mediaCodeRaw.includes('<video') || mediaCodeRaw.includes('youtube') || mediaCodeRaw.includes('<iframe')) mediaType = 'video';
+            else mediaType = 'embed';
+          }
+        } else if (mediaCodeRaw.startsWith('http://') || mediaCodeRaw.startsWith('https://')) {
+          mediaUrl = mediaCodeRaw;
+          if (mediaType === 'none') {
+            if (mediaCodeRaw.match(/\.(jpg|jpeg|png|gif|webp|svg)/i)) mediaType = 'image';
+            else if (mediaCodeRaw.match(/\.(mp3|wav|ogg|m4a)/i)) mediaType = 'audio';
+            else if (mediaCodeRaw.includes('youtube.com') || mediaCodeRaw.includes('youtu.be') || mediaCodeRaw.match(/\.(mp4|webm)/i)) mediaType = 'video';
+            else mediaType = 'image';
+          }
+        } else {
+          embedCode = mediaCodeRaw;
+        }
+      }
+
+      const mediaCaption = String(row['Keterangan Media (Caption)'] || row['Caption Media'] || row['Judul Media'] || row['Caption'] || '').trim() || undefined;
+
       if (rumusanSoal || pilihanA) {
         parsedSoal.push({
           no,
@@ -292,6 +339,10 @@ export async function parseExcelFile(file: File): Promise<{
           kategoriLabel2,
           skor: isNaN(skor) ? 2 : skor,
           pembahasan: pembahasan || undefined,
+          mediaType: mediaType !== 'none' ? mediaType : undefined,
+          mediaUrl,
+          embedCode,
+          mediaCaption
         });
       }
     });

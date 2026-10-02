@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { DataSoalItem, TipePilihanGanda } from '../types';
+import { DataSoalItem, TipePilihanGanda, MediaType } from '../types';
+import { MediaStimulusRenderer } from './MediaStimulusRenderer';
 import { 
   ArrowLeft, 
   Upload, 
@@ -14,7 +15,15 @@ import {
   ListFilter,
   FileSpreadsheet,
   HelpCircle,
-  Sparkles
+  Sparkles,
+  Image,
+  Video,
+  Music,
+  Code,
+  Film,
+  Volume2,
+  Globe,
+  ExternalLink
 } from 'lucide-react';
 
 interface DataSoalViewProps {
@@ -23,6 +32,7 @@ interface DataSoalViewProps {
   onBackToMenu: () => void;
   onOpenUpload: () => void;
   onNavigateToKartu: (soalNo: number) => void;
+  onNavigateToMedia?: (soalNo: number) => void;
 }
 
 export const DataSoalView: React.FC<DataSoalViewProps> = ({
@@ -31,6 +41,7 @@ export const DataSoalView: React.FC<DataSoalViewProps> = ({
   onBackToMenu,
   onOpenUpload,
   onNavigateToKartu,
+  onNavigateToMedia,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('ALL');
@@ -593,6 +604,152 @@ export const DataSoalView: React.FC<DataSoalViewProps> = ({
               </div>
             )}
 
+            {/* 4. Manual Edit Stimulus Media & Embed Code */}
+            <div className="p-3.5 bg-sky-50/80 border border-sky-300 rounded-xl space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-sky-200">
+                <div className="flex items-center gap-2">
+                  <Image className="w-4 h-4 text-blue-600" />
+                  <span className="font-extrabold text-xs text-slate-900">
+                    Stimulus Multimedia & Embed Code (Gambar / Video / Suara / Iframe)
+                  </span>
+                </div>
+                {onNavigateToMedia && editingNo !== null && (
+                  <button
+                    type="button"
+                    onClick={() => onNavigateToMedia(editingNo)}
+                    className="text-[11px] font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1 bg-white px-2 py-0.5 rounded border border-blue-300 shadow-2xs cursor-pointer"
+                    title="Buka tampilan editor media lengkap di navbar"
+                  >
+                    <span>Buka Editor Media di Navbar</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Tipe Media Stimulus:</label>
+                  <select
+                    value={editBuffer.mediaType || 'none'}
+                    onChange={(e) => setEditBuffer({ ...editBuffer, mediaType: e.target.value as MediaType })}
+                    className="w-full p-1.5 bg-white border border-slate-300 rounded font-bold text-xs cursor-pointer"
+                  >
+                    <option value="none">Tidak Ada Media (Teks Murni)</option>
+                    <option value="image">Gambar / Diagram / Infografis</option>
+                    <option value="audio">Suara / Audio Listening (MP3)</option>
+                    <option value="video">Video Stimulus (YouTube / MP4)</option>
+                    <option value="embed">Embed Code Custom HTML / Iframe</option>
+                  </select>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="font-bold text-slate-700 block mb-1">Judul / Keterangan Media (Caption):</label>
+                  <input
+                    type="text"
+                    value={editBuffer.mediaCaption || ''}
+                    onChange={(e) => setEditBuffer({ ...editBuffer, mediaCaption: e.target.value })}
+                    className="w-full p-1.5 bg-white border border-slate-300 rounded text-xs"
+                    placeholder="Contoh: Gambar 1. Denah Lokasi, atau Audio Track 03 (Listening Conversation)..."
+                  />
+                </div>
+              </div>
+
+              {editBuffer.mediaType && editBuffer.mediaType !== 'none' && (
+                <div className="space-y-3 pt-1">
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">
+                      URL Media Langsung (Gambar / Audio MP3 / Link YouTube):
+                    </label>
+                    <input
+                      type="text"
+                      value={editBuffer.mediaUrl || ''}
+                      onChange={(e) => setEditBuffer({ ...editBuffer, mediaUrl: e.target.value })}
+                      className="w-full p-1.5 bg-white border border-slate-300 rounded text-xs font-mono"
+                      placeholder="https://contoh.com/gambar.jpg atau link YouTube https://youtube.com/watch?v=..."
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="font-bold text-slate-700">
+                        Manual Embed Code HTML (Iframe, &lt;img&gt;, &lt;audio&gt;, &lt;video&gt;):
+                      </label>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] text-slate-500 font-semibold">Sisipkan Template Cepat:</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditBuffer({
+                              ...editBuffer,
+                              mediaType: 'image',
+                              embedCode: `<img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&auto=format&fit=crop&q=80" alt="Stimulus" class="max-h-48 mx-auto rounded-lg" />`,
+                              mediaCaption: editBuffer.mediaCaption || `Gambar Stimulus Soal No. ${editingNo}`
+                            });
+                          }}
+                          className="px-1.5 py-0.5 bg-white hover:bg-slate-100 border border-slate-300 rounded text-[10px] font-bold text-slate-700 cursor-pointer"
+                        >
+                          + Tag &lt;img&gt;
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditBuffer({
+                              ...editBuffer,
+                              mediaType: 'audio',
+                              embedCode: `<audio controls class="w-full"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">Browser Anda tidak mendukung audio.</audio>`,
+                              mediaCaption: editBuffer.mediaCaption || `Audio Listening Soal No. ${editingNo}`
+                            });
+                          }}
+                          className="px-1.5 py-0.5 bg-white hover:bg-slate-100 border border-slate-300 rounded text-[10px] font-bold text-slate-700 cursor-pointer"
+                        >
+                          + Tag &lt;audio&gt;
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditBuffer({
+                              ...editBuffer,
+                              mediaType: 'video',
+                              embedCode: `<iframe width="100%" height="220" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Stimulus" frameborder="0" allowfullscreen></iframe>`,
+                              mediaCaption: editBuffer.mediaCaption || `Video Stimulus Soal No. ${editingNo}`
+                            });
+                          }}
+                          className="px-1.5 py-0.5 bg-white hover:bg-slate-100 border border-slate-300 rounded text-[10px] font-bold text-slate-700 cursor-pointer"
+                        >
+                          + Iframe Video
+                        </button>
+                      </div>
+                    </div>
+                    <textarea
+                      rows={3}
+                      value={editBuffer.embedCode || ''}
+                      onChange={(e) => setEditBuffer({ ...editBuffer, embedCode: e.target.value })}
+                      className="w-full p-2 bg-slate-900 text-sky-300 font-mono text-xs rounded-lg border border-slate-700"
+                      placeholder="Ketik atau tempelkan embed code di sini: <iframe src=...>, <audio ...>, <img ...>"
+                    />
+                  </div>
+
+                  {/* Live Preview of the media */}
+                  {(editBuffer.mediaUrl || editBuffer.embedCode) && (
+                    <div className="bg-white p-3 rounded-lg border border-sky-200">
+                      <div className="text-[11px] font-extrabold text-slate-700 mb-1 flex items-center justify-between">
+                        <span>Pratinjau Stimulus Media:</span>
+                        <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                          ✓ Terproteksi aman agar hasil cetak dokumen tetap rapi
+                        </span>
+                      </div>
+                      <MediaStimulusRenderer
+                        soal={{
+                          ...(editBuffer as DataSoalItem),
+                          no: editingNo || 1,
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
             {/* Bottom metadata */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
               <div>
@@ -623,14 +780,14 @@ export const DataSoalView: React.FC<DataSoalViewProps> = ({
                   setEditingNo(null);
                   setEditBuffer({});
                 }}
-                className="px-3 py-1.5 bg-white border border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-slate-50"
+                className="px-3 py-1.5 bg-white border border-slate-300 text-slate-700 font-semibold rounded-lg hover:bg-slate-50 cursor-pointer"
               >
                 Batal
               </button>
               <button
                 type="button"
                 onClick={() => handleSaveEdit(editingNo)}
-                className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg flex items-center gap-1.5 shadow-xs"
+                className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
                 <Check className="w-4 h-4" />
                 <span>Simpan Perubahan</span>
@@ -650,6 +807,7 @@ export const DataSoalView: React.FC<DataSoalViewProps> = ({
                 <th className="p-2.5 border-r border-red-400 text-center w-28">Bentuk Soal</th>
                 <th className="p-2.5 border-r border-red-400 text-center min-w-[80px]">Kunci</th>
                 <th className="p-2.5 border-r border-red-400 min-w-[280px]">Rumusan Butir Soal</th>
+                <th className="p-2.5 border-r border-red-400 text-center min-w-[150px]">Media / Embed</th>
                 <th className="p-2.5 border-r border-red-400 min-w-[150px]">Pilihan A / Pernyataan 1</th>
                 <th className="p-2.5 border-r border-red-400 min-w-[150px]">Pilihan B / Pernyataan 2</th>
                 <th className="p-2.5 border-r border-red-400 min-w-[150px]">Pilihan C / Pernyataan 3</th>
@@ -657,13 +815,14 @@ export const DataSoalView: React.FC<DataSoalViewProps> = ({
                 <th className="p-2.5 border-r border-red-400 min-w-[150px]">Pilihan E / Pernyataan 5</th>
                 <th className="p-2.5 border-r border-red-400 text-center w-20">Kategori</th>
                 <th className="p-2.5 border-r border-red-400 text-center w-14">Skor</th>
-                <th className="p-2.5 text-center w-24">Aksi</th>
+                <th className="p-2.5 text-center w-28">Aksi</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200 text-slate-800">
               {filteredSoal.map((item) => {
                 const isMcma = item.tipeSoal === 'PGK_MCMA';
                 const isKategori = item.tipeSoal === 'PGK_KATEGORI';
+                const hasMedia = item.mediaType && item.mediaType !== 'none' && (item.mediaUrl || item.embedCode);
 
                 return (
                   <tr 
@@ -716,6 +875,71 @@ export const DataSoalView: React.FC<DataSoalViewProps> = ({
                       </div>
                     </td>
 
+                    {/* Media / Embed Code Column */}
+                    <td className="p-2 border-r border-slate-200 text-center align-top bg-slate-50/50">
+                      {hasMedia ? (
+                        <div className="space-y-1 flex flex-col items-center">
+                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded font-black text-[10px] ${
+                            item.mediaType === 'image' ? 'bg-sky-100 text-sky-800 border border-sky-300' :
+                            item.mediaType === 'audio' ? 'bg-amber-100 text-amber-900 border border-amber-300' :
+                            item.mediaType === 'video' ? 'bg-rose-100 text-rose-800 border border-rose-300' :
+                            'bg-purple-100 text-purple-800 border border-purple-300'
+                          }`}>
+                            {item.mediaType === 'image' && '🖼️ Gambar'}
+                            {item.mediaType === 'audio' && '🎧 Audio'}
+                            {item.mediaType === 'video' && '🎬 Video'}
+                            {item.mediaType === 'embed' && '🌐 Embed'}
+                          </span>
+                          {item.mediaCaption && (
+                            <span className="text-[9.5px] text-slate-600 italic block line-clamp-1 max-w-[130px]" title={item.mediaCaption}>
+                              {item.mediaCaption}
+                            </span>
+                          )}
+                          <div className="flex items-center gap-1.5 pt-0.5">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleStartEdit(item);
+                              }}
+                              className="text-[10px] font-bold text-blue-700 hover:text-blue-900 hover:underline cursor-pointer"
+                            >
+                              Edit
+                            </button>
+                            {onNavigateToMedia && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onNavigateToMedia(item.no);
+                                }}
+                                className="text-[10px] font-bold text-purple-700 hover:text-purple-900 hover:underline cursor-pointer flex items-center gap-0.5"
+                                title="Buka di tab Media & Embed navbar"
+                              >
+                                <span>Navbar</span>
+                                <ExternalLink className="w-2.5 h-2.5" />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center gap-1 py-1">
+                          <span className="text-[10px] text-slate-400 italic">Tanpa Media</span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleStartEdit({ ...item, mediaType: 'image' });
+                            }}
+                            className="text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:bg-blue-100/60 px-2 py-0.5 rounded border border-dashed border-blue-300 transition-colors flex items-center gap-0.5 cursor-pointer"
+                          >
+                            <Plus className="w-3 h-3" />
+                            <span>+ Embed</span>
+                          </button>
+                        </div>
+                      )}
+                    </td>
+
                     {/* Pilihan A */}
                     <td className={`p-2.5 border-r border-slate-200 text-xs ${
                       !isMcma && !isKategori && item.kunci === 'A' ? 'bg-amber-50 font-bold text-amber-900' : 'text-slate-600'
@@ -766,21 +990,34 @@ export const DataSoalView: React.FC<DataSoalViewProps> = ({
                       <div className="flex items-center justify-center gap-1 opacity-70 group-hover:opacity-100">
                         <button
                           onClick={() => onNavigateToKartu(item.no)}
-                          className="p-1 hover:bg-blue-100 text-blue-700 rounded"
+                          className="p-1 hover:bg-blue-100 text-blue-700 rounded cursor-pointer"
                           title="Lihat Kartu Soal ini"
                         >
                           <Eye className="w-3.5 h-3.5" />
                         </button>
                         <button
+                          onClick={() => {
+                            if (onNavigateToMedia) {
+                              onNavigateToMedia(item.no);
+                            } else {
+                              handleStartEdit(item);
+                            }
+                          }}
+                          className="p-1 hover:bg-purple-100 text-purple-700 rounded cursor-pointer"
+                          title="Edit Media / Embed Code soal ini"
+                        >
+                          <Image className="w-3.5 h-3.5" />
+                        </button>
+                        <button
                           onClick={() => handleStartEdit(item)}
-                          className="p-1 hover:bg-slate-200 text-slate-600 rounded"
+                          className="p-1 hover:bg-slate-200 text-slate-600 rounded cursor-pointer"
                           title="Edit butir soal"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={() => handleDeleteQuestion(item.no)}
-                          className="p-1 hover:bg-rose-100 text-rose-600 rounded"
+                          className="p-1 hover:bg-rose-100 text-rose-600 rounded cursor-pointer"
                           title="Hapus butir soal"
                         >
                           <Trash2 className="w-3.5 h-3.5" />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IdentitasSekolahGuru, DataMasterItem, DataSoalItem, KartuSoalValidation } from '../types';
 import { KurikulumMerdekaLogo } from './Logos';
+import { MediaStimulusRenderer } from './MediaStimulusRenderer';
 import { ArrowLeft, Printer, ChevronLeft, ChevronRight, Upload, Sparkles, CheckSquare, Layers } from 'lucide-react';
 
 interface KartuSoalViewProps {
@@ -207,6 +208,9 @@ export const KartuSoalView: React.FC<KartuSoalViewProps> = ({
                 {soal.rumusanSoal}
               </div>
             </div>
+
+            {/* Stimulus Media / Embed (Gambar / Suara / Video) */}
+            <MediaStimulusRenderer soal={soal} />
 
             {/* Pilihan Jawaban - Conditionally Rendered by Question Type */}
             {(!soal.tipeSoal || soal.tipeSoal === 'PG_SEDERHANA') && (
