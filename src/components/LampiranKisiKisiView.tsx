@@ -141,50 +141,158 @@ export const LampiranKisiKisiView: React.FC<LampiranKisiKisiViewProps> = ({
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-900">
-              {soalList.map((item) => (
-                <tr key={item.no} className="hover:bg-slate-50/80">
-                  <td className="p-2.5 border border-slate-900 text-center font-bold font-mono align-top">
-                    {item.no}
-                  </td>
-                  <td className="p-2.5 border border-slate-900 space-y-2 align-top">
-                    <p className="font-semibold text-slate-900 leading-relaxed text-xs">
-                      {item.rumusanSoal}
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px] pt-1 text-slate-800">
-                      <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci === 'A' ? 'bg-amber-100 font-bold' : ''}`}>
-                        <span className="font-bold text-slate-600">A.</span>
-                        <span>{item.pilihanA}</span>
+              {soalList.map((item) => {
+                const isMcma = item.tipeSoal === 'PGK_MCMA';
+                const isKategori = item.tipeSoal === 'PGK_KATEGORI';
+
+                return (
+                  <tr key={item.no} className="hover:bg-slate-50/80">
+                    <td className="p-2.5 border border-slate-900 text-center font-bold font-mono align-top">
+                      {item.no}
+                    </td>
+                    <td className="p-2.5 border border-slate-900 space-y-2 align-top">
+                      {/* Badge Tipe Soal */}
+                      <div className="flex items-center gap-2">
+                        <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded border ${
+                          isMcma 
+                            ? 'bg-purple-100 text-purple-900 border-purple-300' 
+                            : isKategori 
+                            ? 'bg-emerald-100 text-emerald-900 border-emerald-300' 
+                            : 'bg-blue-100 text-blue-900 border-blue-300'
+                        }`}>
+                          {isMcma 
+                            ? 'PG Kompleks MCMA (5 Pernyataan)' 
+                            : isKategori 
+                            ? 'PG Kompleks Kategori (3 Pernyataan)' 
+                            : 'Pilihan Ganda Sederhana (A - E)'}
+                        </span>
                       </div>
-                      <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci === 'B' ? 'bg-amber-100 font-bold' : ''}`}>
-                        <span className="font-bold text-slate-600">B.</span>
-                        <span>{item.pilihanB}</span>
-                      </div>
-                      <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci === 'C' ? 'bg-amber-100 font-bold' : ''}`}>
-                        <span className="font-bold text-slate-600">C.</span>
-                        <span>{item.pilihanC}</span>
-                      </div>
-                      <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci === 'D' ? 'bg-amber-100 font-bold' : ''}`}>
-                        <span className="font-bold text-slate-600">D.</span>
-                        <span>{item.pilihanD}</span>
-                      </div>
-                      {item.pilihanE && (
-                        <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci === 'E' ? 'bg-amber-100 font-bold' : ''}`}>
-                          <span className="font-bold text-slate-600">E.</span>
-                          <span>{item.pilihanE}</span>
+
+                      <p className="font-semibold text-slate-900 leading-relaxed text-xs whitespace-pre-line">
+                        {item.rumusanSoal}
+                      </p>
+
+                      {/* 1. Format PG Sederhana (A sampai E) */}
+                      {!isMcma && !isKategori && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px] pt-1 text-slate-800">
+                          <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci.toUpperCase() === 'A' ? 'bg-amber-100 font-bold' : ''}`}>
+                            <span className="font-bold text-slate-600">A.</span>
+                            <span>{item.pilihanA}</span>
+                          </div>
+                          <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci.toUpperCase() === 'B' ? 'bg-amber-100 font-bold' : ''}`}>
+                            <span className="font-bold text-slate-600">B.</span>
+                            <span>{item.pilihanB}</span>
+                          </div>
+                          <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci.toUpperCase() === 'C' ? 'bg-amber-100 font-bold' : ''}`}>
+                            <span className="font-bold text-slate-600">C.</span>
+                            <span>{item.pilihanC}</span>
+                          </div>
+                          <div className={`p-1 rounded flex items-start gap-1.5 ${item.kunci.toUpperCase() === 'D' ? 'bg-amber-100 font-bold' : ''}`}>
+                            <span className="font-bold text-slate-600">D.</span>
+                            <span>{item.pilihanD}</span>
+                          </div>
+                          {item.pilihanE && (
+                            <div className={`p-1 rounded flex items-start gap-1.5 sm:col-span-2 ${item.kunci.toUpperCase() === 'E' ? 'bg-amber-100 font-bold' : ''}`}>
+                              <span className="font-bold text-slate-600">E.</span>
+                              <span>{item.pilihanE}</span>
+                            </div>
+                          )}
                         </div>
                       )}
-                    </div>
-                  </td>
-                  <td className="p-2.5 border border-slate-900 text-center align-top">
-                    <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-amber-400 text-amber-950 font-black text-xs shadow-2xs">
-                      {item.kunci}
-                    </span>
-                  </td>
-                  <td className="p-2.5 border border-slate-900 text-center font-bold text-slate-800 align-top">
-                    {item.skor}
-                  </td>
-                </tr>
-              ))}
+
+                      {/* 2. Format PG Kompleks MCMA (5 Pernyataan) */}
+                      {isMcma && (
+                        <div className="space-y-1 pt-1 text-[11px] text-slate-800">
+                          <div className="text-[10px] text-purple-800 font-semibold italic">
+                            (Pilihan Ganda Kompleks: Centang kotak pada setiap pernyataan yang benar)
+                          </div>
+                          {[
+                            { key: 'A', text: item.pilihanA },
+                            { key: 'B', text: item.pilihanB },
+                            { key: 'C', text: item.pilihanC },
+                            { key: 'D', text: item.pilihanD },
+                            { key: 'E', text: item.pilihanE },
+                          ].map(({ key, text }) => {
+                            const isKey = item.kunci.toUpperCase().includes(key);
+                            return (
+                              <div 
+                                key={key}
+                                className={`p-1 rounded flex items-start gap-2 border ${
+                                  isKey ? 'bg-purple-50/80 border-purple-200 font-semibold text-purple-950' : 'bg-slate-50 border-slate-200'
+                                }`}
+                              >
+                                <span className="font-mono text-xs w-4 shrink-0 font-bold text-slate-700">
+                                  {isKey ? '[✓]' : '[  ]'}
+                                </span>
+                                <span className="font-bold text-slate-600 w-24 shrink-0">Pernyataan {key}:</span>
+                                <span className="flex-1">{text || '-'}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {/* 3. Format PG Kompleks Kategori (3 Pernyataan) */}
+                      {isKategori && (
+                        <div className="pt-1 text-[11px]">
+                          <table className="w-full text-left text-xs border border-slate-400 border-collapse">
+                            <thead className="bg-slate-100 font-bold">
+                              <tr>
+                                <th className="p-1.5 border border-slate-300 w-8 text-center">No</th>
+                                <th className="p-1.5 border border-slate-300">Pernyataan</th>
+                                <th className="p-1.5 border border-slate-300 text-center w-20">{item.kategoriLabel1 || 'Benar'}</th>
+                                <th className="p-1.5 border border-slate-300 text-center w-20">{item.kategoriLabel2 || 'Salah'}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {[
+                                { no: 1, text: item.pilihanA },
+                                { no: 2, text: item.pilihanB },
+                                { no: 3, text: item.pilihanC },
+                              ].map(({ no, text }, idx) => {
+                                const parts = item.kunci.split(',').map(p => p.trim());
+                                const answer = parts[idx] || 'Benar';
+                                const isLabel1 = answer.toLowerCase().includes('benar') || answer.toLowerCase().includes('sesuai') || answer.toLowerCase() === 'b' || answer.toLowerCase() === 'ya';
+
+                                return (
+                                  <tr key={no} className="hover:bg-slate-50">
+                                    <td className="p-1.5 border border-slate-300 text-center font-bold font-mono">{no}</td>
+                                    <td className="p-1.5 border border-slate-300">{text}</td>
+                                    <td className={`p-1.5 border border-slate-300 text-center ${isLabel1 ? 'bg-emerald-100 font-bold text-emerald-900' : 'text-slate-400'}`}>
+                                      {isLabel1 ? '●' : '○'}
+                                    </td>
+                                    <td className={`p-1.5 border border-slate-300 text-center ${!isLabel1 ? 'bg-rose-100 font-bold text-rose-900' : 'text-slate-400'}`}>
+                                      {!isLabel1 ? '●' : '○'}
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+                    </td>
+                    <td className="p-2.5 border border-slate-900 text-center align-top">
+                      {isMcma ? (
+                        <span className="inline-block px-2 py-1 rounded bg-purple-600 text-white font-black text-[11px] shadow-2xs whitespace-nowrap">
+                          {item.kunci}
+                        </span>
+                      ) : isKategori ? (
+                        <span className="inline-block px-1.5 py-1 rounded bg-emerald-700 text-white font-bold text-[10px] leading-tight">
+                          {item.kunci}
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center justify-center w-7 h-7 rounded-md bg-amber-400 text-amber-950 font-black text-xs shadow-2xs">
+                          {item.kunci}
+                        </span>
+                      )}
+                    </td>
+                    <td className="p-2.5 border border-slate-900 text-center font-bold text-slate-800 align-top">
+                      {item.skor}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

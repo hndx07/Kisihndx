@@ -1,4 +1,5 @@
 export type JenjangTes = 
+  | 'TKA' // Tes Kemampuan Akademik
   | 'ASTS' // Asesmen Sumatif Tengah Semester (Kurikulum Merdeka)
   | 'ASAJ' // Asesmen Sumatif Akhir Jenjang (Kurikulum Merdeka)
   | 'ASAT' // Asesmen Sumatif Akhir Tahun (Kurikulum Merdeka)
@@ -9,6 +10,11 @@ export type JenjangTes =
   | 'FORMATIF' // Asesmen Formatif / Harian
   | 'DIAGNOSTIK' // Asesmen Diagnostik
   | 'UJIAN_SEKOLAH'; // Ujian Sekolah
+
+export type TipePilihanGanda = 
+  | 'PG_SEDERHANA'     // Soal Pilihan Ganda sederhana dari option A sampai E (1 Kunci)
+  | 'PGK_MCMA'          // Soal Pilihan Ganda Kompleks MCMA (Multiple Choices Multiple Answers) lima pernyataan
+  | 'PGK_KATEGORI';     // Soal Pilihan Ganda Kompleks kategori dengan tiga pernyataan (Benar/Salah atau Sesuai/Tidak Sesuai)
 
 export type DeepLearningDimension = 
   | 'Mindful Learning' // Berkesadaran: reflektif, kritis, analitis
@@ -58,13 +64,16 @@ export interface DataMasterItem {
 
 export interface DataSoalItem {
   no: number;
-  kunci: 'A' | 'B' | 'C' | 'D' | 'E';
+  tipeSoal?: TipePilihanGanda;
+  kunci: string; // 'A'..'E' untuk PG Sederhana, 'A, C, D' untuk MCMA, atau 'Benar, Salah, Benar' / 'B-S-B' untuk Kategori
   rumusanSoal: string;
-  pilihanA: string;
-  pilihanB: string;
-  pilihanC: string;
-  pilihanD: string;
-  pilihanE?: string;
+  pilihanA: string; // Opsi A atau Pernyataan 1
+  pilihanB: string; // Opsi B atau Pernyataan 2
+  pilihanC: string; // Opsi C atau Pernyataan 3
+  pilihanD: string; // Opsi D atau Pernyataan 4
+  pilihanE?: string; // Opsi E atau Pernyataan 5
+  kategoriLabel1?: string; // Label kolom 1 kategori (default: 'Benar')
+  kategoriLabel2?: string; // Label kolom 2 kategori (default: 'Salah')
   skor: number;
   pembahasan?: string;
 }
@@ -90,4 +99,5 @@ export type ActiveTab =
   | 'soal'
   | 'kartu'
   | 'kisi'
-  | 'lampiran';
+  | 'lampiran'
+  | 'cetak';

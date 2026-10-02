@@ -104,16 +104,27 @@ export const IntegratedUploadModal: React.FC<IntegratedUploadModalProps> = ({
         lines.forEach((line, idx) => {
           const cols = line.split('\t').map(c => c.trim());
           if (cols.length >= 2) {
-            // Check if first column is number or text
             const firstColNum = parseInt(cols[0], 10);
             let no = isNaN(firstColNum) ? idx + 1 : firstColNum;
-            let kunci: 'A' | 'B' | 'C' | 'D' | 'E' = 'A';
+            let bentukRaw = '';
+            let kunci = 'A';
             let soal = '';
             let a = '', b = '', c = '', d = '', e = '';
+            let kat1 = 'Benar';
+            let kat2 = 'Salah';
 
-            // Detect column layout
-            if (['A', 'B', 'C', 'D', 'E'].includes(cols[1]?.toUpperCase())) {
-              kunci = cols[1].toUpperCase() as any;
+            // Detect if column 1 is bentuk soal or kunci
+            if (cols[1]?.toLowerCase().includes('pg') || cols[1]?.toLowerCase().includes('mcma') || cols[1]?.toLowerCase().includes('kategori')) {
+              bentukRaw = cols[1];
+              kunci = cols[2] || 'A';
+              soal = cols[3] || '';
+              a = cols[4] || '';
+              b = cols[5] || '';
+              c = cols[6] || '';
+              d = cols[7] || '';
+              e = cols[8] || '';
+            } else if (['A', 'B', 'C', 'D', 'E'].includes(cols[1]?.toUpperCase()) || cols[1]?.includes(',') || cols[1]?.includes('Benar')) {
+              kunci = cols[1];
               soal = cols[2] || '';
               a = cols[3] || '';
               b = cols[4] || '';
@@ -129,8 +140,17 @@ export const IntegratedUploadModal: React.FC<IntegratedUploadModalProps> = ({
               e = cols[6] || '';
             }
 
+            // Determine question type
+            let tipeSoal: 'PG_SEDERHANA' | 'PGK_MCMA' | 'PGK_KATEGORI' = 'PG_SEDERHANA';
+            if (bentukRaw.toLowerCase().includes('mcma') || kunci.includes(',')) {
+              tipeSoal = 'PGK_MCMA';
+            } else if (bentukRaw.toLowerCase().includes('kategori') || kunci.toLowerCase().includes('benar') || kunci.toLowerCase().includes('salah')) {
+              tipeSoal = 'PGK_KATEGORI';
+            }
+
             newSoals.push({
               no,
+              tipeSoal,
               kunci,
               rumusanSoal: soal,
               pilihanA: a,
@@ -138,7 +158,9 @@ export const IntegratedUploadModal: React.FC<IntegratedUploadModalProps> = ({
               pilihanC: c,
               pilihanD: d,
               pilihanE: e || undefined,
-              skor: 2
+              kategoriLabel1: kat1,
+              kategoriLabel2: kat2,
+              skor: tipeSoal === 'PG_SEDERHANA' ? 2 : 3
             });
           }
         });
@@ -340,22 +362,29 @@ export const IntegratedUploadModal: React.FC<IntegratedUploadModalProps> = ({
           {activeSubTab === 'template' && (
             <div className="space-y-4">
               <div className="p-4 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 leading-relaxed">
-                <p className="font-bold mb-1">Panduan Template Excel Terpadu:</p>
-                File template Excel memuat 3 sheet utama yang sudah diformat sesuai standar Kurikulum Merdeka & Deep Learning:
-                <ul className="list-disc list-inside mt-2 space-y-1 text-slate-700">
-                  <li><strong>Sheet 1 (IDENTITAS):</strong> Nama sekolah, kepala sekolah, guru penyusun, jenjang tes, alokasi waktu.</li>
+                <p className="font-bold mb-1.5 text-sm">Panduan Template Excel TKA & Kurikulum Merdeka Siap Upload:</p>
+                File spreadsheet template memuat sheet terstruktur dan siap pakai:
+                <ul className="list-disc list-inside mt-2 space-y-1.5 text-slate-700">
+                  <li><strong>Sheet 1 (IDENTITAS):</strong> Identitas sekolah, kepala sekolah, guru pengampu, jenjang tes (TKA, ASTS, ASAJ, ASAT, ASAS).</li>
                   <li><strong>Sheet 2 (DATA MASTER):</strong> Elemen, Capaian Pembelajaran, IPK/ATP, Materi, Indikator Soal, Level Kognitif, Dimensi Deep Learning.</li>
-                  <li><strong>Sheet 3 (DATA SOAL):</strong> Nomor soal, kunci jawaban (A/B/C/D/E), rumusan butir soal, dan pilihan jawaban.</li>
+                  <li><strong>Sheet 3 (DATA SOAL):</strong>
+                    <div className="pl-4 mt-1 space-y-1 text-slate-600">
+                      <div>• <strong>PG Sederhana (Option A - E):</strong> Kunci 1 huruf (A/B/C/D/E), kolom Pilihan A s/d E.</div>
+                      <div>• <strong>PG Kompleks MCMA (5 Pernyataan):</strong> Kunci kombo multi-jawaban (contoh: <code>A, C, D</code>), kolom Pilihan A s/d E sebagai Pernyataan 1 s/d 5.</div>
+                      <div>• <strong>PG Kompleks Kategori (3 Pernyataan):</strong> Kunci respon berurutan (contoh: <code>Benar, Salah, Benar</code>), kolom Pilihan A s/d C sebagai Pernyataan 1 s/d 3.</div>
+                    </div>
+                  </li>
+                  <li><strong>Sheet 4 (PETUNJUK FORMAT TKA):</strong> Ringkasan panduan kolom untuk mempermudah pengisian spreadsheet.</li>
                 </ul>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
                   onClick={() => downloadTemplateExcel(identitas, masterList, soalList)}
-                  className="flex items-center justify-center gap-2.5 p-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-xs transition-colors shadow-xs"
+                  className="flex items-center justify-center gap-2.5 p-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-xs transition-colors shadow-xs cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Unduh Template Excel (.xlsx)</span>
+                  <span>Unduh Template Excel TKA Siap Upload (.xlsx)</span>
                 </button>
 
                 <button

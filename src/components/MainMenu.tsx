@@ -29,6 +29,13 @@ export const MainMenu: React.FC<MainMenuProps> = ({
 
   const kurikulumMerdekaTests: { code: JenjangTes; title: string; desc: string; badge: string; color: string }[] = [
     {
+      code: 'TKA',
+      title: 'TKA',
+      desc: 'Tes Kemampuan Akademik (Standar Seleksi / Evaluasi)',
+      badge: 'Penalaran & Bakat Akademik',
+      color: 'from-rose-600 to-pink-700',
+    },
+    {
       code: 'ASTS',
       title: 'ASTS',
       desc: 'Asesmen Sumatif Tengah Semester',
@@ -139,13 +146,13 @@ export const MainMenu: React.FC<MainMenuProps> = ({
           {/* Right Column: KISI-KISI DAN KARTU SOAL */}
           <div>
             <div className="bg-[#FB923C] text-white font-extrabold text-sm text-center py-2.5 tracking-wider border-b border-slate-300">
-              KISI-KISI DAN KARTU SOAL
+              KISI-KISI, KARTU SOAL & HASIL SIAP CETAK
             </div>
             <div className="p-4 bg-[#0F3875] space-y-3">
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <button
                   onClick={() => onNavigate('kartu')}
-                  className="bg-[#FDE68A] hover:bg-amber-200 border border-amber-500 text-slate-900 font-bold text-xs py-3 px-1 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1"
+                  className="bg-[#FDE68A] hover:bg-amber-200 border border-amber-500 text-slate-900 font-bold text-xs py-3 px-1 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer"
                 >
                   <span className="text-[11px] font-extrabold">KARTU SOAL</span>
                   <span className="text-[9px] text-amber-900 font-normal">Format Standar</span>
@@ -153,7 +160,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
 
                 <button
                   onClick={() => onNavigate('kisi')}
-                  className="bg-[#FDE68A] hover:bg-amber-200 border border-amber-500 text-slate-900 font-bold text-xs py-3 px-1 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1"
+                  className="bg-[#FDE68A] hover:bg-amber-200 border border-amber-500 text-slate-900 font-bold text-xs py-3 px-1 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer"
                 >
                   <span className="text-[11px] font-extrabold">KISI KISI</span>
                   <span className="text-[9px] text-amber-900 font-normal">Tabel Distribusi</span>
@@ -161,25 +168,33 @@ export const MainMenu: React.FC<MainMenuProps> = ({
 
                 <button
                   onClick={() => onNavigate('lampiran')}
-                  className="bg-[#FDE68A] hover:bg-amber-200 border border-amber-500 text-slate-900 font-bold text-xs py-3 px-1 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1"
+                  className="bg-[#FDE68A] hover:bg-amber-200 border border-amber-500 text-slate-900 font-bold text-xs py-3 px-1 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer"
                 >
                   <span className="text-[10px] font-extrabold leading-tight">LAMPIRAN KISI-KISI</span>
-                  <span className="text-[9px] text-amber-900 font-normal">Naskah Butir</span>
+                  <span className="text-[9px] text-amber-900 font-normal">Instrumen & Kunci</span>
+                </button>
+
+                <button
+                  onClick={() => onNavigate('cetak')}
+                  className="bg-emerald-400 hover:bg-emerald-300 border border-emerald-600 text-emerald-950 font-bold text-xs py-3 px-1 rounded-lg text-center shadow-xs transition-transform active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer"
+                >
+                  <span className="text-[10px] font-black leading-tight text-emerald-950">NASKAH SIAP CETAK</span>
+                  <span className="text-[9px] text-emerald-900 font-semibold">Lembar Ujian Siswa</span>
                 </button>
               </div>
 
               {/* Integrated Upload Bar */}
-              <div className="pt-1 flex items-center justify-between gap-2">
+              <div className="pt-1 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
                 <button
                   onClick={onOpenUpload}
-                  className="flex-1 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs py-2 px-3 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all"
+                  className="flex-1 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs py-2 px-3 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
                 >
                   <Upload className="w-4 h-4 text-slate-950" />
                   <span>UPLOAD TERINTEGRASI</span>
                 </button>
                 <button
                   onClick={onOpenDeepLearning}
-                  className="bg-white/15 hover:bg-white/25 text-white font-semibold text-xs py-2 px-3 rounded-lg flex items-center gap-1.5 transition-colors"
+                  className="bg-white/15 hover:bg-white/25 text-white font-semibold text-xs py-2 px-3 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
                   <span>Analisis Deep Learning</span>
@@ -196,13 +211,13 @@ export const MainMenu: React.FC<MainMenuProps> = ({
           <DeepLearningLogo />
         </div>
 
-        {/* Kurikulum Merdeka Assessment Selector & School Information Panel */}
+        {/* Kurikulum Merdeka & TKA Assessment Selector */}
         <div className="bg-white py-8 px-6 border-t border-slate-200">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             {/* Heading & Active Status */}
             <div className="text-center mb-6">
               <span className="inline-block px-3 py-1 bg-amber-100 border border-amber-300 text-amber-900 font-extrabold text-[11px] uppercase tracking-wider rounded-full mb-2">
-                PILIHAN ASESMEN KURIKULUM MERDEKA
+                PILIHAN ASESMEN & EVALUASI AKADEMIK
               </span>
               <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
                 {identitas.namaSekolah}
@@ -212,15 +227,15 @@ export const MainMenu: React.FC<MainMenuProps> = ({
               </p>
             </div>
 
-            {/* Quick Choice Buttons for ASTS, ASAJ, ASAT, ASAS */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+            {/* Quick Choice Buttons for TKA, ASTS, ASAJ, ASAT, ASAS */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
               {kurikulumMerdekaTests.map((t) => {
                 const isActive = identitas.jenjangTes === t.code;
                 return (
                   <button
                     key={t.code}
                     onClick={() => handleChooseTes(t.code, `${t.desc} (${t.title})`)}
-                    className={`relative p-4 rounded-xl text-left transition-all border-2 flex flex-col justify-between cursor-pointer ${
+                    className={`relative p-3.5 rounded-xl text-left transition-all border-2 flex flex-col justify-between cursor-pointer ${
                       isActive 
                         ? 'border-blue-600 bg-blue-50/70 shadow-md ring-2 ring-blue-500/20' 
                         : 'border-slate-200 bg-white hover:border-blue-300 hover:bg-slate-50 shadow-2xs'
@@ -236,7 +251,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
                         <span className={`text-base font-black tracking-tight ${isActive ? 'text-blue-800' : 'text-slate-800'}`}>
                           {t.title}
                         </span>
-                        <span className="text-[9px] px-1.5 py-0.5 bg-slate-100 text-slate-600 font-semibold rounded">
+                        <span className="text-[8px] px-1.5 py-0.2 bg-slate-100 text-slate-600 font-bold rounded truncate">
                           {t.badge}
                         </span>
                       </div>
@@ -247,7 +262,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
 
                     <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px]">
                       <span className={isActive ? 'font-bold text-blue-700' : 'text-slate-400 font-medium'}>
-                        {isActive ? '✓ Aktif Digunakan' : 'Klik untuk Pilih'}
+                        {isActive ? '✓ Aktif' : 'Pilih'}
                       </span>
                     </div>
                   </button>
@@ -256,7 +271,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
             </div>
 
             {/* Current Active Banner */}
-            <div className="p-3 bg-linear-to-r from-blue-900 to-indigo-900 text-white rounded-xl shadow-xs flex flex-wrap items-center justify-between gap-3">
+            <div className="p-3 bg-linear-to-r from-blue-900 to-indigo-900 text-white rounded-xl shadow-xs flex flex-wrap items-center justify-between gap-3 mb-6">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg bg-amber-400 text-blue-950 font-black flex items-center justify-center text-xs shadow-xs">
                   {identitas.jenjangTes}
@@ -273,11 +288,67 @@ export const MainMenu: React.FC<MainMenuProps> = ({
 
               <div className="flex items-center gap-2">
                 <button
+                  onClick={() => onNavigate('cetak')}
+                  className="px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[11px] rounded-lg transition-colors cursor-pointer shadow-xs"
+                >
+                  Lihat Naskah Siap Cetak →
+                </button>
+                <button
                   onClick={() => onNavigate('identitas')}
                   className="px-3 py-1.5 bg-white/15 hover:bg-white/25 text-white font-semibold text-[11px] rounded-lg transition-colors cursor-pointer"
                 >
-                  Ubah di Identitas Guru →
+                  Ubah Identitas Guru →
                 </button>
+              </div>
+            </div>
+
+            {/* Standar Ketentuan Pilihan Ganda TKA */}
+            <div className="border border-slate-200 rounded-xl p-4 bg-slate-50/70">
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-200">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <h4 className="font-bold text-xs text-slate-900 uppercase tracking-wide">
+                    Ketentuan Model Soal Pilihan Ganda (TKA & Kurikulum Merdeka)
+                  </h4>
+                </div>
+                <button
+                  onClick={() => onNavigate('soal')}
+                  className="text-xs text-blue-700 font-bold hover:underline"
+                >
+                  Buka Data Soal →
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
+                  <div className="font-extrabold text-blue-800 text-[11px] mb-1 flex items-center gap-1.5">
+                    <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-[10px]">1</span>
+                    <span>PG Sederhana (Option A - E)</span>
+                  </div>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    Satu opsi jawaban benar dari pilihan A sampai E. Cocok untuk menguji pemahaman faktual dan prosedural.
+                  </p>
+                </div>
+
+                <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
+                  <div className="font-extrabold text-purple-800 text-[11px] mb-1 flex items-center gap-1.5">
+                    <span className="w-4 h-4 rounded-full bg-purple-100 text-purple-800 flex items-center justify-center text-[10px]">2</span>
+                    <span>PG Kompleks MCMA (5 Pernyataan)</span>
+                  </div>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    Multiple Choices Multiple Answers: siswa dapat memilih lebih dari satu jawaban benar (kotak centang) dari 5 pernyataan.
+                  </p>
+                </div>
+
+                <div className="p-3 bg-white rounded-lg border border-slate-200 shadow-2xs">
+                  <div className="font-extrabold text-emerald-800 text-[11px] mb-1 flex items-center gap-1.5">
+                    <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-[10px]">3</span>
+                    <span>PG Kompleks Kategori (3 Pernyataan)</span>
+                  </div>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    Matriks evaluasi Benar / Salah (atau Sesuai / Tidak Sesuai) untuk masing-masing tiga pernyataan yang disajikan.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

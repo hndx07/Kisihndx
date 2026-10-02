@@ -9,6 +9,7 @@ import { DataSoalView } from './components/DataSoalView';
 import { KartuSoalView } from './components/KartuSoalView';
 import { KisiKisiView } from './components/KisiKisiView';
 import { LampiranKisiKisiView } from './components/LampiranKisiKisiView';
+import { NaskahSoalCetakView } from './components/NaskahSoalCetakView';
 import { IntegratedUploadModal } from './components/IntegratedUploadModal';
 import { DeepLearningAnalyzerModal } from './components/DeepLearningAnalyzerModal';
 import { exportToExcel, downloadTemplateExcel } from './utils/excelHelper';
@@ -23,6 +24,7 @@ import {
   CreditCard, 
   ListTree, 
   FileText,
+  Printer,
   RotateCcw,
   Check
 } from 'lucide-react';
@@ -139,7 +141,8 @@ export function App() {
   const handleJenjangChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const val = e.target.value as JenjangTes;
     let namaLengkap = 'Asesmen Sumatif Tengah Semester (ASTS)';
-    if (val === 'ASTS') namaLengkap = 'Asesmen Sumatif Tengah Semester (ASTS)';
+    if (val === 'TKA') namaLengkap = 'Tes Kemampuan Akademik (TKA)';
+    else if (val === 'ASTS') namaLengkap = 'Asesmen Sumatif Tengah Semester (ASTS)';
     else if (val === 'ASAJ') namaLengkap = 'Asesmen Sumatif Akhir Jenjang (ASAJ)';
     else if (val === 'ASAT') namaLengkap = 'Asesmen Sumatif Akhir Tahun (ASAT)';
     else if (val === 'ASAS') namaLengkap = 'Asesmen Sumatif Akhir Semester (ASAS)';
@@ -182,6 +185,7 @@ export function App() {
     { id: 'kartu', label: 'Kartu Soal', icon: CreditCard },
     { id: 'kisi', label: 'Kisi-Kisi', icon: ListTree },
     { id: 'lampiran', label: 'Lampiran Soal', icon: FileText },
+    { id: 'cetak', label: 'Naskah Siap Cetak', icon: Printer },
   ];
 
   return (
@@ -223,7 +227,8 @@ export function App() {
                 className="bg-transparent text-amber-300 font-bold text-xs focus:outline-hidden cursor-pointer"
                 title="Pilih Jenjang / Pilihan Tes"
               >
-                <optgroup label="Kurikulum Merdeka (Resmi)" className="text-slate-900 bg-white font-bold">
+                <optgroup label="Kurikulum Merdeka & Tes Akademik (Resmi)" className="text-slate-900 bg-white font-bold">
+                  <option value="TKA" className="text-slate-900">TKA (Tes Kemampuan Akademik)</option>
                   <option value="ASTS" className="text-slate-900">ASTS (Sumatif Tengah Semester)</option>
                   <option value="ASAJ" className="text-slate-900">ASAJ (Sumatif Akhir Jenjang)</option>
                   <option value="ASAT" className="text-slate-900">ASAT (Sumatif Akhir Tahun)</option>
@@ -392,6 +397,15 @@ export function App() {
 
         {activeTab === 'lampiran' && (
           <LampiranKisiKisiView
+            identitas={identitas}
+            soalList={soalList}
+            onBackToMenu={() => setActiveTab('menu')}
+            onOpenUpload={() => setIsUploadModalOpen(true)}
+          />
+        )}
+
+        {activeTab === 'cetak' && (
+          <NaskahSoalCetakView
             identitas={identitas}
             soalList={soalList}
             onBackToMenu={() => setActiveTab('menu')}

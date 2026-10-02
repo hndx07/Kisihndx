@@ -574,64 +574,159 @@ export const defaultSoalList: DataSoalItem[] = [
     pembahasan: 'Respon suhu panas yang memicu kebutuhan membuka jendela bersama.'
   },
   {
-    no: 46,
+    no: 40,
+    tipeSoal: 'PG_SEDERHANA',
     kunci: 'A',
-    rumusanSoal: `Sifa: "What do you think about Lampung?" Lisa: "In my opinion, Lampung is a beautiful city. There are so many beautiful beaches there. Lampung is also famous for its tapis or songket. It is traditional cloth in Lampung." Sifa: "How about its food? Do you think it is delicious?" Lisa: "I think…. Yes! Do you know seruit? It’s delicious." Sifa: "Yes, I know seruit. By the way…. Which one is more delicious? Seruit or sate of mushroom?" Lisa: "According to me, seruit is more delicious than sate of mushroom." Sifa: "I don’t think so. I think sate of mushroom is more delicious than seruit because sate of mushroom is my favorite food." Lisa: "So we have different favorite foods then." Sifa: "I think so." What is the name of the region discussed between Sifa and Lisa?`,
-    pilihanA: 'Lampung',
-    pilihanB: 'Semarang',
-    pilihanC: 'Jakarta',
-    pilihanD: 'Surabaya',
-    pilihanE: 'Bandung',
+    rumusanSoal: "Complete the dialogue below!\nFather: Exam is in the corner. It's time to study seriously.\nChild: Okay, Dad.\nFather: What are you going to do first?\nChild: ........\nFather: That's a good plan.",
+    pilihanA: 'I am thinking of making a study schedule.',
+    pilihanB: 'I am not sure about it.',
+    pilihanC: 'I will play games now.',
+    pilihanD: 'I think studying is boring.',
+    pilihanE: 'Never mind.',
     skor: 2,
-    pembahasan: 'Topik utama dialog adalah daerah Lampung beserta kearifan lokalnya (Meaningful cultural learning).'
+    pembahasan: 'Ungkapan rencana terstruktur yang menunjukkan kemandirian belajar (Mindful Learning).'
+  },
+  // SOAL PILIHAN GANDA KOMPLEKS MCMA (MULTIPLE CHOICES MULTIPLE ANSWERS) - LIMA PERNYATAAN
+  {
+    no: 41,
+    tipeSoal: 'PGK_MCMA',
+    kunci: 'B, C, D',
+    rumusanSoal: 'Perhatikan situasi diskusi kelas berikut! Manakah pernyataan berikut yang merupakan ungkapan memberi saran dan opini santun secara tepat? (Pilihlah jawaban yang benar! Jawaban benar dapat lebih dari satu dari lima pernyataan berikut):',
+    pilihanA: 'You must follow all my instructions without any questions.',
+    pilihanB: 'In my opinion, we should divide the presentation slides equally among members.',
+    pilihanC: 'I would suggest that we review the assessment rubric before final submission.',
+    pilihanD: 'What if we consult our teacher first regarding the experimental methodology?',
+    pilihanE: 'Your argument is completely irrelevant and makes no sense.',
+    skor: 3,
+    pembahasan: 'Pernyataan B, C, dan D adalah bentuk kolaboratif dan santun dalam menyampaikan gagasan (Meaningful & Joyful Learning).'
+  },
+  {
+    no: 42,
+    tipeSoal: 'PGK_MCMA',
+    kunci: 'A, C, E',
+    rumusanSoal: 'Bacalah kutipan dialog apresiasi film berikut:\nLiana: "The film of Kartini is truly inspiring. What do you think about the film?"\nBram: "I believe it represents women empowerment, educational struggle, and moral courage."\nManakah pernyataan yang sesuai dengan esensi dialog di atas? (Pilihlah semua jawaban yang benar dari lima pernyataan berikut):',
+    pilihanA: 'Bram memberikan opini positif terhadap film biografi Kartini.',
+    pilihanB: 'Liana menolak gagasan perjuangan pendidikan dalam film.',
+    pilihanC: 'Film tersebut menginspirasi pemirsa tentang keberanian moral perempuan.',
+    pilihanD: 'Dialog tersebut berisi perselisihan pendapat yang tajam antarpenutur.',
+    pilihanE: 'Konteks percakapan memuat nilai keteladanan pahlawan nasional.',
+    skor: 3,
+    pembahasan: 'Pernyataan A, C, dan E selaras dengan makna kontekstual dialog (Deep Learning: Meaningful).'
+  },
+  {
+    no: 43,
+    tipeSoal: 'PGK_MCMA',
+    kunci: 'A, B, D',
+    rumusanSoal: 'Disajikan topik: "Digital Literacy in Vocational High Schools". Manakah pernyataan di bawah ini yang mencerminkan sikap kritis dan etis dalam memanfaatkan kecerdasan buatan dan internet? (Pilihlah semua pernyataan yang benar dari lima opsi berikut):',
+    pilihanA: 'Verifying information from multiple credible academic sources before drawing conclusions.',
+    pilihanB: 'Respecting intellectual property and acknowledging original authors through proper citations.',
+    pilihanC: 'Copying generated responses directly without evaluating accuracy or factual truth.',
+    pilihanD: 'Using AI tools collaboratively as learning partners to enhance critical thinking skills.',
+    pilihanE: 'Sharing unverified assessment answers on social media communities during examinations.',
+    skor: 3,
+    pembahasan: 'Pernyataan A, B, dan D mencerminkan dimensi Berkesadaran (Mindful Learning) dan etika digital.'
+  },
+  {
+    no: 44,
+    tipeSoal: 'PGK_MCMA',
+    kunci: 'B, C, E',
+    rumusanSoal: 'Bacalah konteks dialog berikut:\nDamar: "Our Biology class today is so joyful and interactive."\nTania: "I couldn’t agree more. The teacher encouraged us to do field observation and group synthesis."\nManakah indikator pembelajaran yang tercermin dari dialog tersebut? (Pilihlah semua pernyataan yang tepat dari lima pilihan):',
+    pilihanA: 'Peserta didik merasa tertekan dengan materi yang bersifat pasif hafalan.',
+    pilihanB: 'Tania menyatakan persetujuan kuat (strong agreement) terhadap pendapat Damar.',
+    pilihanC: 'Model pembelajaran yang diterapkan menerapkan prinsip Joyful & Meaningful Learning.',
+    pilihanD: 'Kedua siswa memiliki perbedaan pandangan mengenai guru pengampu.',
+    pilihanE: 'Aktivitas belajar berbasis observasi langsung dan sintesis kolaboratif.',
+    skor: 3,
+    pembahasan: 'Pernyataan B, C, dan E secara akurat menggambarkan dinamika interaksi dalam dialog.'
+  },
+  {
+    no: 45,
+    tipeSoal: 'PGK_MCMA',
+    kunci: 'A, C, D',
+    rumusanSoal: 'Perhatikan ragam frasa bahasa Inggris berikut! Manakah frasa yang lazim digunakan untuk menyatakan kesepakatan (Agreement) dalam diskusi akademik? (Pilihlah jawaban yang benar dari lima opsi berikut):',
+    pilihanA: 'I could not agree more with your perspective.',
+    pilihanB: 'I am afraid I have completely opposite conclusion.',
+    pilihanC: 'That is exactly what I have in mind.',
+    pilihanD: 'You have made a very valid and persuasive point.',
+    pilihanE: 'I strongly doubt the credibility of that finding.',
+    skor: 3,
+    pembahasan: 'Frasa A, C, dan D merupakan ungkapan formal untuk menyatakan persetujuan (Agreement).'
+  },
+  // SOAL PILIHAN GANDA KOMPLEKS KATEGORI - TIGA PERNYATAAN (BENAR / SALAH)
+  {
+    no: 46,
+    tipeSoal: 'PGK_KATEGORI',
+    kunci: 'Benar, Salah, Benar',
+    rumusanSoal: `Perhatikan teks kearifan lokal berikut:\nSifa: "What do you think about Lampung?"\nLisa: "In my opinion, Lampung is a beautiful city. There are so many beautiful beaches there. Lampung is also famous for its tapis or songket. It is traditional cloth in Lampung."\nSifa: "How about its food? Do you think it is delicious?"\nLisa: "I think…. Yes! Do you know seruit? It’s delicious."\n\nTentukan kategori Benar atau Salah untuk setiap pernyataan berikut berdasarkan teks di atas:`,
+    pilihanA: 'Lisa menyatakan opini bahwa Lampung memiliki destinasi pantai yang sangat indah.',
+    pilihanB: 'Kain Tapis atau Songket dalam teks dijelaskan sebagai makanan khas masyarakat Lampung.',
+    pilihanC: 'Seruit merupakan kuliner khas tradisional Lampung yang dinilai lezat oleh penutur.',
+    pilihanD: '-',
+    pilihanE: '-',
+    kategoriLabel1: 'Benar',
+    kategoriLabel2: 'Salah',
+    skor: 3,
+    pembahasan: 'P1: Benar (ada pada teks). P2: Salah (Tapis adalah kain tradisional, bukan kuliner). P3: Benar (Seruit adalah makanan khas lezat).'
   },
   {
     no: 47,
-    kunci: 'A',
-    rumusanSoal: `Read the conversation above. What does Lisa think about Lampung?`,
-    pilihanA: 'It is a beautiful city.',
-    pilihanB: 'It is an ugly city.',
-    pilihanC: 'It is a city full of crime.',
-    pilihanD: 'It is a bad city.',
-    pilihanE: 'It is an overcrowded industrial city.',
-    skor: 2,
-    pembahasan: 'Lisa secara eksplisit menyatakan: "In my opinion, Lampung is a beautiful city."'
+    tipeSoal: 'PGK_KATEGORI',
+    kunci: 'Benar, Benar, Salah',
+    rumusanSoal: `Bacalah dialog interaksional berikut:\nSifa: "Which one is more delicious? Seruit or sate of mushroom?"\nLisa: "According to me, seruit is more delicious than sate of mushroom."\nSifa: "I don’t think so. I think sate of mushroom is more delicious than seruit because sate of mushroom is my favorite food."\nLisa: "So we have different favorite foods then."\nSifa: "I think so."\n\nTentukan kategori Benar atau Salah untuk setiap pernyataan berikut berdasarkan dialog:`,
+    pilihanA: 'Lisa dan Sifa memiliki perbedaan preferensi kuliner favorit tanpa menimbulkan pertengkaran.',
+    pilihanB: 'Sifa menggunakan frasa "I don’t think so" untuk menyatakan ketidaksetujuan secara santun.',
+    pilihanC: 'Sifa setuju bahwa rasa seruit jauh lebih unggul dibandingkan dengan sate jamur.',
+    pilihanD: '-',
+    pilihanE: '-',
+    kategoriLabel1: 'Benar',
+    kategoriLabel2: 'Salah',
+    skor: 3,
+    pembahasan: 'P1: Benar (toleransi selera). P2: Benar (polite disagreement). P3: Salah (Sifa justru lebih menyukai sate jamur).'
   },
   {
     no: 48,
-    kunci: 'B',
-    rumusanSoal: `Based on the dialogue between Sifa and Lisa, what kind of food is preferred by Lisa compared to mushroom satay?`,
-    pilihanA: 'Seruit.',
-    pilihanB: 'Mushroom satay.',
-    pilihanC: 'Soup.',
-    pilihanD: 'Pizza.',
-    pilihanE: 'Bakso.',
-    skor: 2,
-    pembahasan: 'Analisis mendalam perbandingan selera kuliner khas nusantara (Meaningful contextual learning).'
+    tipeSoal: 'PGK_KATEGORI',
+    kunci: 'Salah, Benar, Benar',
+    rumusanSoal: `Analisis fungsi kebahasaan kalimat opini berikut:\n(1) "In my opinion, vocational school prepares students with practical industrial competency."\n(2) "What do you think of modern renewable energy implementations in rural areas?"\n(3) "I believe project-based learning improves students' collaboration and problem solving."\n\nTentukan kategori Benar atau Salah untuk setiap analisis pernyataan kebahasaan di bawah ini:`,
+    pilihanA: 'Kalimat nomor (1) berfungsi sebagai ungkapan menanyakan pendapat (asking for opinion).',
+    pilihanB: 'Kalimat nomor (2) merupakan tuturan menanyakan opini dan gagasan kritis mitra tutur.',
+    pilihanC: 'Kalimat nomor (3) menyatakan keyakinan dan pandangan pribadi penutur (giving opinion).',
+    pilihanD: '-',
+    pilihanE: '-',
+    kategoriLabel1: 'Benar',
+    kategoriLabel2: 'Salah',
+    skor: 3,
+    pembahasan: 'P1: Salah (kalimat 1 memberi opini, bukan bertanya). P2: Benar (asking opinion). P3: Benar (giving opinion).'
   },
   {
     no: 49,
-    kunci: 'B',
-    rumusanSoal: `Based on the dialogue about Lampung above, what is Songket / Tapis?`,
-    pilihanA: 'Traditional dance from Lampung.',
-    pilihanB: 'Traditional clothes from Lampung.',
-    pilihanC: 'Traditional food from Lampung.',
-    pilihanD: 'Traditional weapon from Lampung.',
-    pilihanE: 'Traditional musical instrument.',
-    skor: 2,
-    pembahasan: 'Dalam teks dijelaskan: "Lampung is also famous with its tapis or songket. It is traditional cloth in Lampung."'
+    tipeSoal: 'PGK_KATEGORI',
+    kunci: 'Benar, Salah, Benar',
+    rumusanSoal: `Perhatikan prinsip Tes Kemampuan Akademik (TKA) dan Asesmen Kurikulum Merdeka berikut:\nTentukan kategori Benar atau Salah untuk masing-masing pernyataan berikut ini:`,
+    pilihanA: 'Soal Pilihan Ganda Kompleks MCMA memberikan kesempatan peserta memilih lebih dari satu jawaban benar.',
+    pilihanB: 'Soal Pilihan Ganda Kompleks Kategori hanya memiliki opsi tunggal A sampai E tanpa matriks pernyataan.',
+    pilihanC: 'Model soal TKA mengukur daya nalar analitis, literasi pemahaman teks, dan pemecahan masalah nyata.',
+    pilihanD: '-',
+    pilihanE: '-',
+    kategoriLabel1: 'Benar',
+    kategoriLabel2: 'Salah',
+    skor: 3,
+    pembahasan: 'P1: Benar (karakteristik MCMA). P2: Salah (model kategori menggunakan matriks pernyataan Benar/Salah). P3: Benar (tujuan TKA).'
   },
   {
     no: 50,
-    kunci: 'B',
-    rumusanSoal: `“In my opinion, Lampung is the beautiful city.” The sentence above is included into the expression of ….`,
-    pilihanA: 'asking opinion',
-    pilihanB: 'giving opinion',
-    pilihanC: 'agreement',
-    pilihanD: 'disagreement',
-    pilihanE: 'offering help',
-    skor: 2,
-    pembahasan: 'Kalimat tersebut merupakan bentuk pemberian pendapat (Giving an opinion).'
+    tipeSoal: 'PGK_KATEGORI',
+    kunci: 'Benar, Benar, Salah',
+    rumusanSoal: `Perhatikan kutipan refleksi evaluasi pembelajaran berikut:\n"Deep Learning mendorong terciptanya suasana belajar Mindful (sadar kritis), Meaningful (bermakna kontekstual), dan Joyful (menggembirakan eksploratif)."\nTentukan kategori Benar atau Salah untuk setiap pernyataan di bawah ini:`,
+    pilihanA: 'Pendekatan Mindful Learning melatih murid untuk berpikir reflektif, teliti, dan tidak terburu-buru.',
+    pilihanB: 'Pendekatan Meaningful Learning menghubungkan materi kurikulum dengan dunia nyata dan kearifan lokal.',
+    pilihanC: 'Pendekatan Joyful Learning menuntut guru memberikan soal ujian yang semata-mata bersifat hafalan rumus.',
+    pilihanD: '-',
+    pilihanE: '-',
+    kategoriLabel1: 'Benar',
+    kategoriLabel2: 'Salah',
+    skor: 3,
+    pembahasan: 'P1: Benar. P2: Benar. P3: Salah (Joyful bukan hafalan semata, melainkan partisipatif dan menumbuhkan rasa ingin tahu).'
   }
 ];
 
@@ -641,6 +736,7 @@ export const defaultMasterList: DataMasterItem[] = defaultSoalList.map((soal) =>
   let ipk = 'Menguraikan konsep-konsep yang saling berkaitan pada teks dialog opini';
   let materi = 'Opinion and Thoughts';
   let indikator = 'Memahami dialog percakapan sehari-hari dalam konteks meminta dan memberi informasi terkait pendapat';
+  let bentukTes = 'Pilihan Ganda Sederhana';
   let level: 'L1 (LOTS)' | 'L2 (MOTS)' | 'L3 (HOTS)' = 'L2 (MOTS)';
   let deepLearning: 'Mindful Learning' | 'Meaningful Learning' | 'Joyful Learning' = 'Mindful Learning';
   let tingkatKesukaran: 'Mudah' | 'Sedang' | 'HOTS / Sukar' = 'Sedang';
@@ -654,6 +750,7 @@ export const defaultMasterList: DataMasterItem[] = defaultSoalList.map((soal) =>
     level = soal.no <= 5 ? 'L1 (LOTS)' : 'L2 (MOTS)';
     deepLearning = 'Mindful Learning';
     tingkatKesukaran = soal.no <= 5 ? 'Mudah' : 'Sedang';
+    bentukTes = 'Pilihan Ganda Sederhana (A-E)';
   } else if (soal.no >= 15 && soal.no <= 22) {
     elemen = 'Menyimak - Berbicara';
     cp = cpMembaca2;
@@ -663,6 +760,7 @@ export const defaultMasterList: DataMasterItem[] = defaultSoalList.map((soal) =>
     level = 'L2 (MOTS)';
     deepLearning = 'Joyful Learning';
     tingkatKesukaran = 'Sedang';
+    bentukTes = 'Pilihan Ganda Sederhana (A-E)';
   } else if (soal.no >= 23 && soal.no <= 36) {
     elemen = 'Menyimak - Berbicara';
     cp = cpMembaca2;
@@ -672,25 +770,39 @@ export const defaultMasterList: DataMasterItem[] = defaultSoalList.map((soal) =>
     level = (soal.no === 24 || soal.no === 26 || soal.no === 27 || soal.no === 30 || soal.no === 36) ? 'L3 (HOTS)' : 'L2 (MOTS)';
     deepLearning = 'Meaningful Learning';
     tingkatKesukaran = level === 'L3 (HOTS)' ? 'HOTS / Sukar' : 'Sedang';
-  } else if (soal.no >= 37 && soal.no <= 45) {
+    bentukTes = 'Pilihan Ganda Sederhana (A-E)';
+  } else if (soal.no >= 37 && soal.no <= 40) {
     elemen = 'Menulis - Mempresentasikan';
     cp = cpMenulis;
     ipk = 'Menganalisis unsur kebahasaan dan hubungan sebab-akibat dalam dialog opinion & suggestion';
     materi = 'Opinion and Thoughts';
-    indikator = 'Disajikan percakapan kompleks, siswa dapat menghubungkan ide utama dan mengevaluasi argumen penutur';
+    indikator = 'Disajikan percakapan terstruktur, siswa dapat menyimpulkan rencana tindakan secara mandiri';
     level = 'L2 (MOTS)';
     deepLearning = 'Joyful Learning';
     tingkatKesukaran = 'Sedang';
+    bentukTes = 'Pilihan Ganda Sederhana (A-E)';
+  } else if (soal.no >= 41 && soal.no <= 45) {
+    // PGK MCMA (5 Pernyataan)
+    elemen = 'Menulis - Mempresentasikan';
+    cp = cpMenulis;
+    ipk = 'Mengevaluasi ragam argumen multi-pernyataan dan ekspresi bahasa dalam konteks etis & akademik';
+    materi = 'TKA: Penalaran Akademik & Literasi Teks';
+    indikator = 'Disajikan stimulus konteks akademik, siswa dapat menganalisis lima pernyataan dan memilih lebih dari satu jawaban yang benar';
+    level = 'L3 (HOTS)';
+    deepLearning = 'Meaningful Learning';
+    tingkatKesukaran = 'HOTS / Sukar';
+    bentukTes = 'Pilihan Ganda Kompleks MCMA (5 Pernyataan)';
   } else {
-    // 46 to 50 (Lampung text reading)
+    // 46 to 50: PGK Kategori (3 Pernyataan)
     elemen = 'Membaca - Memirsa';
     cp = cpMembaca2;
-    ipk = 'Menganalisis informasi tersirat dan kearifan lokal dalam teks percakapan deskriptif budaya nusantara';
-    materi = 'Opinion and Thoughts in Cultural Context (Kearifan Lokal Lampung)';
-    indikator = 'Disajikan teks dialog tentang budaya dan kuliner Lampung, siswa dapat mengevaluasi rincian informasi dan klasifikasi ungkapan opini';
-    level = (soal.no === 48 || soal.no === 49) ? 'L3 (HOTS)' : 'L2 (MOTS)';
-    deepLearning = 'Meaningful Learning';
-    tingkatKesukaran = level === 'L3 (HOTS)' ? 'HOTS / Sukar' : 'Sedang';
+    ipk = 'Mengevaluasi kebenaran fakta dan inferensi informasi dalam teks kearifan lokal & refleksi asesmen';
+    materi = 'TKA: Literasi Budaya & Analisis Logika';
+    indikator = 'Disajikan stimulus bacaan, siswa dapat menentukan kategori Benar atau Salah untuk tiga pernyataan yang disajikan';
+    level = 'L3 (HOTS)';
+    deepLearning = 'Mindful Learning';
+    tingkatKesukaran = 'HOTS / Sukar';
+    bentukTes = 'Pilihan Ganda Kompleks Kategori (3 Pernyataan)';
   }
 
   return {
@@ -700,7 +812,7 @@ export const defaultMasterList: DataMasterItem[] = defaultSoalList.map((soal) =>
     ipk,
     materi,
     indikatorSoal: indikator,
-    bentukTes: 'Pilihan Ganda',
+    bentukTes,
     levelKognitif: level,
     deepLearningDimension: deepLearning,
     tingkatKesukaran,

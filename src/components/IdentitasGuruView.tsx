@@ -28,7 +28,8 @@ export const IdentitasGuruView: React.FC<IdentitasGuruViewProps> = ({
 
   const handleJenjangChange = (jenjang: JenjangTes) => {
     let namaLengkap = 'Asesmen Sumatif Tengah Semester (ASTS)';
-    if (jenjang === 'ASTS') namaLengkap = 'Asesmen Sumatif Tengah Semester (ASTS)';
+    if (jenjang === 'TKA') namaLengkap = 'Tes Kemampuan Akademik (TKA)';
+    else if (jenjang === 'ASTS') namaLengkap = 'Asesmen Sumatif Tengah Semester (ASTS)';
     else if (jenjang === 'ASAJ') namaLengkap = 'Asesmen Sumatif Akhir Jenjang (ASAJ)';
     else if (jenjang === 'ASAT') namaLengkap = 'Asesmen Sumatif Akhir Tahun (ASAT)';
     else if (jenjang === 'ASAS') namaLengkap = 'Asesmen Sumatif Akhir Semester (ASAS)';
@@ -198,7 +199,8 @@ export const IdentitasGuruView: React.FC<IdentitasGuruViewProps> = ({
                 onChange={(e) => handleJenjangChange(e.target.value as JenjangTes)}
                 className="w-full px-3 py-1.5 bg-amber-50 border-2 border-amber-300 rounded-md focus:ring-2 focus:ring-amber-500 font-bold text-amber-950"
               >
-                <optgroup label="Kurikulum Merdeka (Resmi)">
+                <optgroup label="Kurikulum Merdeka & Tes Akademik (Resmi)">
+                  <option value="TKA">TKA - Tes Kemampuan Akademik (Standar Seleksi / Evaluasi)</option>
                   <option value="ASTS">ASTS - Asesmen Sumatif Tengah Semester</option>
                   <option value="ASAJ">ASAJ - Asesmen Sumatif Akhir Jenjang</option>
                   <option value="ASAT">ASAT - Asesmen Sumatif Akhir Tahun</option>

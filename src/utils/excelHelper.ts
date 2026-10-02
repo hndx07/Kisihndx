@@ -1,5 +1,5 @@
 import * as XLSX from 'xlsx';
-import { IdentitasSekolahGuru, DataMasterItem, DataSoalItem, JenjangTes, LevelKognitif, DeepLearningDimension } from '../types';
+import { IdentitasSekolahGuru, DataMasterItem, DataSoalItem, JenjangTes, LevelKognitif, DeepLearningDimension, TipePilihanGanda } from '../types';
 
 export function exportToExcel(
   identitas: IdentitasSekolahGuru,
@@ -69,24 +69,37 @@ export function exportToExcel(
   const wsMaster = XLSX.utils.aoa_to_sheet(masterRows);
   XLSX.utils.book_append_sheet(wb, wsMaster, 'DATA MASTER');
 
-  // 3. Sheet DATA SOAL
+  // 3. Sheet DATA SOAL (Diselaraskan untuk TKA & Ketentuan Pilihan Ganda: PG Sederhana A-E, PGK MCMA 5 Pernyataan, PGK Kategori 3 Pernyataan)
   const soalRows: any[] = [
     [
       'No. Soal',
-      'Kunci',
+      'Bentuk Soal',
+      'Kunci Jawaban',
       'Rumusan Butir Soal',
-      'Pilihan A',
-      'Pilihan B',
-      'Pilihan C',
-      'Pilihan D',
-      'Pilihan E',
+      'Pilihan A / Pernyataan 1',
+      'Pilihan B / Pernyataan 2',
+      'Pilihan C / Pernyataan 3',
+      'Pilihan D / Pernyataan 4',
+      'Pilihan E / Pernyataan 5',
+      'Kategori Respon (Kolom 1 / Kolom 2)',
       'Skor',
       'Pembahasan / Dimensi'
     ]
   ];
   soalList.forEach((s) => {
+    const tipeLabel = s.tipeSoal === 'PGK_MCMA' 
+      ? 'PG Kompleks MCMA (5 Pernyataan)' 
+      : s.tipeSoal === 'PGK_KATEGORI' 
+      ? 'PG Kompleks Kategori (3 Pernyataan)' 
+      : 'PG Sederhana (Option A-E)';
+    
+    const kategoriLabel = s.tipeSoal === 'PGK_KATEGORI' 
+      ? `${s.kategoriLabel1 || 'Benar'} / ${s.kategoriLabel2 || 'Salah'}` 
+      : '-';
+
     soalRows.push([
       s.no,
+      tipeLabel,
       s.kunci,
       s.rumusanSoal,
       s.pilihanA,
@@ -94,6 +107,7 @@ export function exportToExcel(
       s.pilihanC,
       s.pilihanD,
       s.pilihanE || '',
+      kategoriLabel,
       s.skor,
       s.pembahasan || ''
     ]);
@@ -101,12 +115,36 @@ export function exportToExcel(
   const wsSoal = XLSX.utils.aoa_to_sheet(soalRows);
   XLSX.utils.book_append_sheet(wb, wsSoal, 'DATA SOAL');
 
+  // 4. Sheet PETUNJUK FORMAT TKA
+  const petunjukRows = [
+    ['PANDUAN PENGISIAN SPREADSHEET KISI-KISI & SOAL TKA', ''],
+    ['1. PILIHAN GANDA SEDERHANA (OPTION A - E):', ''],
+    ['Bentuk Soal', 'PG Sederhana (Option A-E)'],
+    ['Kunci Jawaban', 'Satu huruf: A, B, C, D, atau E (contoh: D)'],
+    ['Pilihan Jawaban', 'Isi kolom Pilihan A sampai Pilihan E secara lengkap.'],
+    ['', ''],
+    ['2. PILIHAN GANDA KOMPLEKS MCMA (MULTIPLE CHOICES MULTIPLE ANSWERS) LIMA PERNYATAAN:', ''],
+    ['Bentuk Soal', 'PG Kompleks MCMA (5 Pernyataan)'],
+    ['Kunci Jawaban', 'Daftar pernyataan benar dipisah koma (contoh: A, C, D atau 1, 3, 5)'],
+    ['Pilihan A s/d E', 'Isi 5 pernyataan yang dievaluasi siswa (Pernyataan 1 s/d 5)'],
+    ['Keterangan', 'Siswa dapat memilih lebih dari satu jawaban benar (kotak centang)'],
+    ['', ''],
+    ['3. PILIHAN GANDA KOMPLEKS KATEGORI DENGAN TIGA PERNYATAAN:', ''],
+    ['Bentuk Soal', 'PG Kompleks Kategori (3 Pernyataan)'],
+    ['Kunci Jawaban', 'Kunci 3 pernyataan berurutan (contoh: Benar, Salah, Benar atau B-S-B atau Sesuai, Tidak Sesuai, Sesuai)'],
+    ['Pilihan A s/d C', 'Isi 3 pernyataan: Pilihan A = Pernyataan 1, Pilihan B = Pernyataan 2, Pilihan C = Pernyataan 3'],
+    ['Pilihan D & E', 'Dapat dikosongkan untuk soal model kategori 3 pernyataan.'],
+    ['Kategori Respon', 'Default: "Benar / Salah" (atau "Sesuai / Tidak Sesuai", "Ya / Tidak")']
+  ];
+  const wsPetunjuk = XLSX.utils.aoa_to_sheet(petunjukRows);
+  XLSX.utils.book_append_sheet(wb, wsPetunjuk, 'PETUNJUK FORMAT TKA');
+
   const filename = customFilename || `Kisi_dan_Kartu_Soal_${identitas.mataPelajaran.replace(/\s+/g, '_')}_${identitas.jenjangTes}.xlsx`;
   XLSX.writeFile(wb, filename);
 }
 
 export function downloadTemplateExcel(identitas: IdentitasSekolahGuru, masterList: DataMasterItem[], soalList: DataSoalItem[]) {
-  exportToExcel(identitas, masterList, soalList, 'TEMPLATE_KISI_KARTU_SOAL_SMK_MUHIBA.xlsx');
+  exportToExcel(identitas, masterList, soalList, 'TEMPLATE_KISI_KARTU_SOAL_TKA_KUMER.xlsx');
 }
 
 export async function parseExcelFile(file: File): Promise<{
@@ -160,7 +198,8 @@ export async function parseExcelFile(file: File): Promise<{
       else if (key.includes('bentuk tes')) partialIdentitas.bentukTes = val;
       else if (key.includes('jenjang tes')) {
         partialIdentitas.namaJenjangTesLengkap = val;
-        if (val.includes('ASTS') || val.includes('PSTS') || val.includes('PTS') || val.includes('Tengah')) partialIdentitas.jenjangTes = 'ASTS';
+        if (val.includes('TKA') || val.toLowerCase().includes('akademik')) partialIdentitas.jenjangTes = 'TKA';
+        else if (val.includes('ASTS') || val.includes('PSTS') || val.includes('PTS') || val.includes('Tengah')) partialIdentitas.jenjangTes = 'ASTS';
         else if (val.includes('ASAJ') || val.includes('PSAJ') || val.includes('Akhir Jenjang')) partialIdentitas.jenjangTes = 'ASAJ';
         else if (val.includes('ASAT') || val.includes('Akhir Tahun') || val.includes('Kenaikan')) partialIdentitas.jenjangTes = 'ASAT';
         else if (val.includes('ASAS') || val.includes('PSAS') || val.includes('PAS') || val.includes('Akhir Semester')) partialIdentitas.jenjangTes = 'ASAS';
@@ -196,27 +235,61 @@ export async function parseExcelFile(file: File): Promise<{
     rawData.forEach((row, index) => {
       // Find keys flexibly
       const no = Number(row['No'] || row['No.'] || row['No. Soal'] || row['Nomor'] || index + 1);
-      const kunciRaw = String(row['Kunci'] || row['Kunci Jawaban'] || row['KUNCI'] || 'A').trim().toUpperCase();
-      const kunci = (['A', 'B', 'C', 'D', 'E'].includes(kunciRaw) ? kunciRaw : 'A') as 'A' | 'B' | 'C' | 'D' | 'E';
-      const rumusanSoal = String(row['Rumusan Butir Soal'] || row['Soal'] || row['Butir Soal'] || row['Pertanyaan'] || '').trim();
-      const pilihanA = String(row['Pilihan A'] || row['A'] || row['a'] || '').trim();
-      const pilihanB = String(row['Pilihan B'] || row['B'] || row['b'] || '').trim();
-      const pilihanC = String(row['Pilihan C'] || row['C'] || row['c'] || '').trim();
-      const pilihanD = String(row['Pilihan D'] || row['D'] || row['d'] || '').trim();
-      const pilihanE = String(row['Pilihan E'] || row['E'] || row['e'] || '').trim();
-      const skor = Number(row['Skor'] || 2);
-      const pembahasan = String(row['Pembahasan'] || row['Pembahasan / Dimensi'] || row['Keterangan'] || '').trim();
+      const kunciRaw = String(row['Kunci'] || row['Kunci Jawaban'] || row['KUNCI'] || 'A').trim();
+      const rumusanSoal = String(row['Rumusan Butir Soal'] || row['Soal'] || row['Butir Soal'] || row['Pertanyaan'] || row['Stimulus'] || '').trim();
+      
+      const pilihanA = String(row['Pilihan A / Pernyataan 1'] || row['Pilihan A'] || row['Pernyataan 1'] || row['A'] || row['a'] || '').trim();
+      const pilihanB = String(row['Pilihan B / Pernyataan 2'] || row['Pilihan B'] || row['Pernyataan 2'] || row['B'] || row['b'] || '').trim();
+      const pilihanC = String(row['Pilihan C / Pernyataan 3'] || row['Pilihan C'] || row['Pernyataan 3'] || row['C'] || row['c'] || '').trim();
+      const pilihanD = String(row['Pilihan D / Pernyataan 4'] || row['Pilihan D'] || row['Pernyataan 4'] || row['D'] || row['d'] || '').trim();
+      const pilihanE = String(row['Pilihan E / Pernyataan 5'] || row['Pilihan E'] || row['Pernyataan 5'] || row['E'] || row['e'] || '').trim();
+      
+      const bentukRaw = String(row['Bentuk Soal'] || row['Tipe Soal'] || row['Bentuk / Tipe Soal'] || row['Jenis Soal'] || '').toLowerCase();
+      
+      // Determine question type according to TKA specifications
+      let tipeSoal: TipePilihanGanda = 'PG_SEDERHANA';
+      if (bentukRaw.includes('mcma') || bentukRaw.includes('multiple') || bentukRaw.includes('kompleks mcma') || bentukRaw.includes('lima')) {
+        tipeSoal = 'PGK_MCMA';
+      } else if (bentukRaw.includes('kategori') || bentukRaw.includes('3 pernyataan') || bentukRaw.includes('tiga pernyataan') || bentukRaw.includes('benar/salah') || bentukRaw.includes('b/s')) {
+        tipeSoal = 'PGK_KATEGORI';
+      } else {
+        // Smart inference from key
+        const upperKunci = kunciRaw.toUpperCase();
+        if (upperKunci.includes(',') || upperKunci.includes(';') || (upperKunci.length >= 2 && upperKunci.includes('A') && upperKunci.includes('C'))) {
+          tipeSoal = 'PGK_MCMA';
+        } else if (upperKunci.includes('BENAR') || upperKunci.includes('SALAH') || upperKunci.includes('B-S') || upperKunci.includes('SESUAI')) {
+          tipeSoal = 'PGK_KATEGORI';
+        } else if (!pilihanD && !pilihanE && pilihanA && pilihanB && pilihanC) {
+          tipeSoal = 'PGK_KATEGORI';
+        }
+      }
+
+      // Kategori labels if provided
+      const kategoriRaw = String(row['Kategori Respon (Kolom 1 / Kolom 2)'] || row['Kategori'] || '').trim();
+      let kategoriLabel1 = 'Benar';
+      let kategoriLabel2 = 'Salah';
+      if (kategoriRaw.includes('/')) {
+        const parts = kategoriRaw.split('/');
+        kategoriLabel1 = parts[0]?.trim() || 'Benar';
+        kategoriLabel2 = parts[1]?.trim() || 'Salah';
+      }
+
+      const skor = Number(row['Skor'] || (tipeSoal === 'PGK_MCMA' ? 3 : tipeSoal === 'PGK_KATEGORI' ? 3 : 2));
+      const pembahasan = String(row['Pembahasan'] || row['Pembahasan / Dimensi'] || row['Pembahasan / Keterangan'] || row['Keterangan'] || '').trim();
 
       if (rumusanSoal || pilihanA) {
         parsedSoal.push({
           no,
-          kunci,
+          tipeSoal,
+          kunci: kunciRaw || 'A',
           rumusanSoal,
           pilihanA,
           pilihanB,
           pilihanC,
           pilihanD,
           pilihanE: pilihanE || undefined,
+          kategoriLabel1,
+          kategoriLabel2,
           skor: isNaN(skor) ? 2 : skor,
           pembahasan: pembahasan || undefined,
         });
@@ -296,7 +369,7 @@ export function exportToJson(
     masterList,
     soalList,
     exportDate: new Date().toISOString(),
-    version: '2.0-kumer-deeplearning'
+    version: '2.5-tka-kumer-deeplearning'
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);

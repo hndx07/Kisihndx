@@ -192,51 +192,146 @@ export const KartuSoalView: React.FC<KartuSoalViewProps> = ({
           <div className="md:col-span-7 p-3 space-y-3">
             <div className="flex items-center justify-between text-[11px] pb-2 border-b border-slate-200">
               <span className="text-slate-600 font-medium">Buku Sumber: <strong className="text-slate-800">{identitas.bukuSumber}</strong></span>
-              <span className="font-bold text-slate-800">Nomor Soal: <strong className="text-blue-700 font-black">{soal.no}</strong></span>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-300">
+                  {soal.tipeSoal === 'PGK_MCMA' ? 'PGK MCMA (5 Pernyataan)' : soal.tipeSoal === 'PGK_KATEGORI' ? 'PGK Kategori (3 Pernyataan)' : 'PG Sederhana (A-E)'}
+                </span>
+                <span className="font-bold text-slate-800">Nomor: <strong className="text-blue-700 font-black">{soal.no}</strong></span>
+              </div>
             </div>
 
             {/* Rumusan Butir Soal (matches light green background in screenshot page 11) */}
             <div>
               <span className="font-bold text-slate-800 text-[11px] block mb-1">Rumusan Butir Soal:</span>
-              <div className="p-3 rounded bg-[#DCFCE7] border border-emerald-300 text-slate-900 text-xs font-medium leading-relaxed">
+              <div className="p-3 rounded bg-[#DCFCE7] border border-emerald-300 text-slate-900 text-xs font-medium leading-relaxed whitespace-pre-line">
                 {soal.rumusanSoal}
               </div>
             </div>
 
-            {/* Pilihan Jawaban (matches light blue background in screenshot page 11) */}
-            <div className="space-y-1.5">
-              <span className="font-bold text-slate-800 text-[11px] block">Pilihan Jawaban:</span>
-              <div className="space-y-1">
-                <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci === 'A' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
-                  <span className="font-bold text-slate-700 w-5">a.</span>
-                  <span className="flex-1 text-slate-900">{soal.pilihanA}</span>
-                </div>
-                <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci === 'B' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
-                  <span className="font-bold text-slate-700 w-5">b.</span>
-                  <span className="flex-1 text-slate-900">{soal.pilihanB}</span>
-                </div>
-                <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci === 'C' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
-                  <span className="font-bold text-slate-700 w-5">c.</span>
-                  <span className="flex-1 text-slate-900">{soal.pilihanC}</span>
-                </div>
-                <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci === 'D' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
-                  <span className="font-bold text-slate-700 w-5">d.</span>
-                  <span className="flex-1 text-slate-900">{soal.pilihanD}</span>
-                </div>
-                {soal.pilihanE && (
-                  <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci === 'E' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
-                    <span className="font-bold text-slate-700 w-5">e.</span>
-                    <span className="flex-1 text-slate-900">{soal.pilihanE}</span>
+            {/* Pilihan Jawaban - Conditionally Rendered by Question Type */}
+            {(!soal.tipeSoal || soal.tipeSoal === 'PG_SEDERHANA') && (
+              <div className="space-y-1.5">
+                <span className="font-bold text-slate-800 text-[11px] block">Pilihan Jawaban (A - E):</span>
+                <div className="space-y-1">
+                  <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci.toUpperCase().trim() === 'A' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
+                    <span className="font-bold text-slate-700 w-5">a.</span>
+                    <span className="flex-1 text-slate-900">{soal.pilihanA}</span>
                   </div>
-                )}
+                  <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci.toUpperCase().trim() === 'B' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
+                    <span className="font-bold text-slate-700 w-5">b.</span>
+                    <span className="flex-1 text-slate-900">{soal.pilihanB}</span>
+                  </div>
+                  <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci.toUpperCase().trim() === 'C' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
+                    <span className="font-bold text-slate-700 w-5">c.</span>
+                    <span className="flex-1 text-slate-900">{soal.pilihanC}</span>
+                  </div>
+                  <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci.toUpperCase().trim() === 'D' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
+                    <span className="font-bold text-slate-700 w-5">d.</span>
+                    <span className="flex-1 text-slate-900">{soal.pilihanD}</span>
+                  </div>
+                  {soal.pilihanE && (
+                    <div className={`p-2 rounded flex items-start gap-2 ${soal.kunci.toUpperCase().trim() === 'E' ? 'bg-amber-100 border border-amber-300 font-bold' : 'bg-[#E0F2FE]'}`}>
+                      <span className="font-bold text-slate-700 w-5">e.</span>
+                      <span className="flex-1 text-slate-900">{soal.pilihanE}</span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Pilihan Ganda Kompleks MCMA (5 Pernyataan) */}
+            {soal.tipeSoal === 'PGK_MCMA' && (
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-800 text-[11px]">
+                    Daftar Lima Pernyataan (MCMA - Multiple Choices):
+                  </span>
+                  <span className="text-[10px] text-purple-700 font-semibold italic">
+                    Centang [✓] menunjukkan kunci jawaban benar
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  {[
+                    { key: 'A', text: soal.pilihanA },
+                    { key: 'B', text: soal.pilihanB },
+                    { key: 'C', text: soal.pilihanC },
+                    { key: 'D', text: soal.pilihanD },
+                    { key: 'E', text: soal.pilihanE },
+                  ].map(({ key, text }) => {
+                    const isKey = soal.kunci.toUpperCase().includes(key);
+                    return (
+                      <div 
+                        key={key} 
+                        className={`p-2 rounded flex items-start gap-2 border transition-colors ${
+                          isKey 
+                            ? 'bg-purple-100/90 border-purple-300 font-bold text-purple-950' 
+                            : 'bg-slate-50 border-slate-200 text-slate-800'
+                        }`}
+                      >
+                        <span className={`w-5 h-5 rounded flex items-center justify-center font-black text-xs shrink-0 ${
+                          isKey ? 'bg-purple-700 text-white' : 'bg-slate-200 text-slate-500'
+                        }`}>
+                          {isKey ? '✓' : key}
+                        </span>
+                        <span className="font-bold text-slate-700 w-24 shrink-0">Pernyataan {key}:</span>
+                        <span className="flex-1">{text || '-'}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Pilihan Ganda Kompleks Kategori (3 Pernyataan) */}
+            {soal.tipeSoal === 'PGK_KATEGORI' && (
+              <div className="space-y-1.5">
+                <span className="font-bold text-slate-800 text-[11px] block">
+                  Matriks Tiga Pernyataan & Kategori ({soal.kategoriLabel1 || 'Benar'} / {soal.kategoriLabel2 || 'Salah'}):
+                </span>
+                <div className="overflow-x-auto border border-slate-300 rounded-lg">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead className="bg-[#E0F2FE] text-slate-900 font-bold border-b border-slate-300">
+                      <tr>
+                        <th className="p-2 border-r border-slate-300 text-center w-8">No</th>
+                        <th className="p-2 border-r border-slate-300">Pernyataan yang Dievaluasi</th>
+                        <th className="p-2 border-r border-slate-300 text-center w-24">{soal.kategoriLabel1 || 'Benar'}</th>
+                        <th className="p-2 text-center w-24">{soal.kategoriLabel2 || 'Salah'}</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200">
+                      {[
+                        { no: 1, text: soal.pilihanA },
+                        { no: 2, text: soal.pilihanB },
+                        { no: 3, text: soal.pilihanC },
+                      ].map(({ no, text }, idx) => {
+                        const parts = soal.kunci.split(',').map(p => p.trim());
+                        const answer = parts[idx] || (soal.kunci.includes('B') && !soal.kunci.includes('Salah') ? 'Benar' : 'Benar');
+                        const isLabel1 = answer.toLowerCase().includes('benar') || answer.toLowerCase().includes('sesuai') || answer.toLowerCase() === 'b' || answer.toLowerCase() === 'ya';
+                        
+                        return (
+                          <tr key={no} className="hover:bg-slate-50">
+                            <td className="p-2 border-r border-slate-300 text-center font-bold font-mono">{no}</td>
+                            <td className="p-2 border-r border-slate-300 font-medium text-slate-800">{text}</td>
+                            <td className={`p-2 border-r border-slate-300 text-center ${isLabel1 ? 'bg-emerald-100 font-bold text-emerald-900' : 'text-slate-400'}`}>
+                              {isLabel1 ? '● ' + (soal.kategoriLabel1 || 'Benar') : '○'}
+                            </td>
+                            <td className={`p-2 text-center ${!isLabel1 ? 'bg-rose-100 font-bold text-rose-900' : 'text-slate-400'}`}>
+                              {!isLabel1 ? '● ' + (soal.kategoriLabel2 || 'Salah') : '○'}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
 
             {/* Kunci Jawaban & Indikator Pencapaian Kompetensi */}
             <div className="pt-2 border-t border-slate-200 flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
-                <span className="font-black text-slate-800 text-xs">KUNCI:</span>
-                <span className="w-8 h-8 rounded-lg bg-[#FB923C] text-white flex items-center justify-center font-black text-base shadow-xs">
+                <span className="font-black text-slate-800 text-xs">KUNCI JAWABAN:</span>
+                <span className="px-3 py-1 rounded-lg bg-[#FB923C] text-white flex items-center justify-center font-black text-sm shadow-xs tracking-wide">
                   {soal.kunci}
                 </span>
               </div>
