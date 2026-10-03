@@ -83,15 +83,15 @@ export const KartuSoalView: React.FC<KartuSoalViewProps> = ({
     return (
       <div 
         key={soal.no} 
-        className={`bg-white border-2 border-slate-900 rounded-lg p-5 shadow-xs text-xs font-sans text-slate-900 max-w-4xl mx-auto ${
+        className={`bg-white border-2 border-slate-900 rounded-lg p-4 sm:p-5 shadow-xs text-xs font-sans text-slate-900 max-w-4xl mx-auto print:p-2 print:border-none print:shadow-none ${
           isBatch ? 'break-after-page mb-8' : ''
         }`}
       >
         {/* 1. Official School Header (KOP RESMI) */}
-        <KopDokumenResmi identitas={identitas} className="mb-2.5" />
+        <KopDokumenResmi identitas={identitas} className="mb-1.5 print:mb-1" />
 
         {/* Card Header matching Kurikulum Merdeka */}
-        <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900 gap-4">
+        <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900 gap-3">
           <div>
             <h2 className="text-base font-black tracking-tight uppercase leading-tight text-slate-900">
               KARTU SOAL {identitas.namaJenjangTesLengkap.toUpperCase()}

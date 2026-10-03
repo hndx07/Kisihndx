@@ -152,12 +152,12 @@ export const KisiKisiView: React.FC<KisiKisiViewProps> = ({
       </div>
 
       {/* Official Kisi-Kisi Document (Matches Page 12) */}
-      <div className="bg-white border-2 border-slate-900 rounded-lg p-6 shadow-xs text-xs font-sans text-slate-900 max-w-5xl mx-auto">
+      <div className="bg-white border-2 border-slate-900 rounded-lg p-5 sm:p-6 shadow-xs text-xs font-sans text-slate-900 max-w-5xl mx-auto print:p-2 print:border-none print:shadow-none">
         {/* 1. Official School Header (KOP RESMI) */}
-        <KopDokumenResmi identitas={identitas} className="mb-3" />
+        <KopDokumenResmi identitas={identitas} className="mb-1.5 print:mb-1" />
 
         {/* Document Header */}
-        <div className="flex items-center justify-between pb-3 border-b-2 border-slate-900 gap-4">
+        <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900 gap-3">
           <div className="flex-1">
             <h1 className="text-base sm:text-lg font-black tracking-tight uppercase leading-tight text-slate-900">
               KISI-KISI DAN SOAL {identitas.namaJenjangTesLengkap.toUpperCase()}
@@ -168,13 +168,13 @@ export const KisiKisiView: React.FC<KisiKisiViewProps> = ({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <KurikulumMerdekaLogo height={34} />
-            <DeepLearningLogo height={28} />
+            <KurikulumMerdekaLogo height={32} />
+            <DeepLearningLogo height={26} />
           </div>
         </div>
 
         {/* School Metadata Details */}
-        <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 py-4 border-b-2 border-slate-900 text-xs">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-1 py-2.5 border-b-2 border-slate-900 text-xs">
           <div className="flex">
             <span className="w-36 font-bold text-slate-700">Satuan Pendidikan</span>
             <span className="w-3">:</span>

@@ -154,12 +154,12 @@ export const NaskahSoalCetakView: React.FC<NaskahSoalCetakViewProps> = ({
       </div>
 
       {/* ================= Printable Document Canvas ================= */}
-      <div className="bg-white border-2 border-slate-900 rounded-lg p-6 sm:p-8 shadow-xs text-slate-900 max-w-5xl mx-auto print:p-2 print:border-none print:shadow-none print:max-w-none">
+      <div className="bg-white border-2 border-slate-900 rounded-lg p-5 sm:p-7 shadow-xs text-slate-900 max-w-5xl mx-auto print:p-2 print:border-none print:shadow-none print:max-w-none">
         {/* 1. Official School Header (KOP DOKUMEN RESMI SAMA PERSIS DENGAN CONTOH) */}
-        <KopDokumenResmi identitas={identitas} className="mb-2" />
+        <KopDokumenResmi identitas={identitas} className="mb-1.5 print:mb-1" />
 
         {/* Sub-Header Judul Naskah Soal */}
-        <div className="text-center py-2 border-b border-slate-800 print:border-black mb-3">
+        <div className="text-center py-1.5 border-b border-slate-800 print:border-black mb-2">
           <h2 className="text-sm sm:text-base font-black tracking-wider uppercase text-slate-900 leading-tight">
             NASKAH SOAL {identitas.namaJenjangTesLengkap.toUpperCase()}
           </h2>
@@ -169,7 +169,7 @@ export const NaskahSoalCetakView: React.FC<NaskahSoalCetakViewProps> = ({
         </div>
 
         {/* 2. Metadata Grid Table & Student Slip */}
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 my-3 p-3 bg-slate-50 border border-slate-400 rounded text-[11px]">
+        <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 my-2.5 p-2.5 bg-slate-50 border border-slate-400 rounded text-[11px]">
           {/* Left: Mata Pelajaran & Jadwal (7 cols) */}
           <div className="sm:col-span-7 space-y-1 border-b sm:border-b-0 sm:border-r border-slate-300 pb-2 sm:pb-0 pr-2">
             <div className="flex">

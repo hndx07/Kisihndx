@@ -73,14 +73,14 @@ export const LampiranKisiKisiView: React.FC<LampiranKisiKisiViewProps> = ({
       </div>
 
       {/* Official Lampiran Document (Matches Page 13) */}
-      <div className="bg-white border-2 border-slate-900 rounded-lg p-6 shadow-xs text-xs font-sans text-slate-900 max-w-5xl mx-auto">
+      <div className="bg-white border-2 border-slate-900 rounded-lg p-5 sm:p-6 shadow-xs text-xs font-sans text-slate-900 max-w-5xl mx-auto print:p-2 print:border-none print:shadow-none">
         {/* 1. Official School Header (KOP RESMI) */}
-        <KopDokumenResmi identitas={identitas} className="mb-3" />
+        <KopDokumenResmi identitas={identitas} className="mb-1.5 print:mb-1" />
 
         {/* Document Header */}
-        <div className="flex items-center justify-between pb-3 border-b-2 border-slate-900 gap-4">
+        <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900 gap-3">
           <div className="flex-1">
-            <h1 className="text-base font-black tracking-tight uppercase leading-tight text-slate-900">
+            <h1 className="text-sm sm:text-base font-black tracking-tight uppercase leading-tight text-slate-900">
               LAMPIRAN KISI-KISI : INSTRUMEN / BUTIR SOAL
             </h1>
             <h2 className="text-xs sm:text-sm font-bold text-slate-800 tracking-wide mt-0.5">
@@ -91,11 +91,11 @@ export const LampiranKisiKisiView: React.FC<LampiranKisiKisiViewProps> = ({
             </p>
           </div>
 
-          <KurikulumMerdekaLogo height={34} />
+          <KurikulumMerdekaLogo height={32} />
         </div>
 
         {/* Short Metadata Header */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-3 border-b-2 border-slate-900 text-[11px] bg-slate-50 px-3 my-3 rounded">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-2 border-b-2 border-slate-900 text-[11px] bg-slate-50 px-3 my-2 rounded">
           <div>
             <span className="text-slate-500 block">Mata Pelajaran:</span>
             <strong className="text-slate-900">{identitas.mataPelajaran}</strong>

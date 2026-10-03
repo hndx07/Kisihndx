@@ -25,60 +25,60 @@ export const KopDokumenResmi: React.FC<KopDokumenResmiProps> = ({
 
   return (
     <div className={`w-full text-black font-sans select-none ${className}`}>
-      {/* Container: Logo Left + Centered Text */}
-      <div className="flex items-center justify-between gap-2 sm:gap-4 pb-1 relative">
-        {/* Left: Logo SMK Muhammadiyah Bawang */}
-        <div className="shrink-0 w-24 sm:w-28 flex items-center justify-center">
+      {/* Centered Kop Cluster: Logo & Text are clustered together so the logo is not stranded far at the edge */}
+      <div className="w-full max-w-[760px] mx-auto flex items-center justify-between gap-3 sm:gap-4 px-2 sm:px-4 pb-1">
+        {/* Left: Logo SMK Muhammadiyah Bawang (compact & properly inset) */}
+        <div className="shrink-0 w-20 sm:w-22 flex items-center justify-center">
           <img
             src={logoUrl}
             alt="Logo SMK Muhammadiyah Bawang"
-            className="w-20 h-20 sm:w-24 sm:h-24 object-contain print:w-22 print:h-22"
+            className="w-16 h-16 sm:w-20 sm:h-20 object-contain print:w-18 print:h-18"
             crossOrigin="anonymous"
             loading="eager"
           />
         </div>
 
-        {/* Center: Official Text Hierarchy (Matching Exact Screenshot) */}
-        <div className="flex-1 text-center leading-tight sm:leading-snug">
-          <h3 className="font-bold text-xs sm:text-[13px] md:text-[14px] uppercase tracking-wider text-black">
+        {/* Center: Official Text Hierarchy (Compact, neat line spacing) */}
+        <div className="flex-1 text-center leading-tight">
+          <h3 className="font-bold text-[11.5px] sm:text-[13px] md:text-[13.5px] uppercase tracking-wider text-black">
             {instansi1}
           </h3>
-          <h4 className="font-bold text-xs sm:text-[13px] md:text-[14px] uppercase tracking-wide text-black mt-0.5">
+          <h4 className="font-bold text-[11.5px] sm:text-[13px] md:text-[13.5px] uppercase tracking-wide text-black mt-0.5">
             {instansi2}
           </h4>
-          <h1 className="font-black text-base sm:text-lg md:text-[21px] uppercase tracking-tight text-black mt-0.5 sm:mt-1 font-sans">
+          <h1 className="font-black text-[15px] sm:text-[18px] md:text-[20px] uppercase tracking-tight text-black mt-0.5 font-sans">
             {namaSekolah}
           </h1>
-          <div className="font-extrabold text-xs sm:text-[13px] md:text-[14px] uppercase text-black mt-0.5 tracking-[0.25em]">
+          <div className="font-extrabold text-[11px] sm:text-[12.5px] md:text-[13px] uppercase text-black mt-0.5 tracking-[0.22em] sm:tracking-[0.25em]">
             {akreditasi}
           </div>
-          <p className="text-[10px] sm:text-[11.5px] font-normal text-black mt-1">
+          <p className="text-[9.5px] sm:text-[11px] font-normal text-black mt-0.5 leading-tight">
             {alamat}
           </p>
-          <p className="text-[10px] sm:text-[11.5px] text-black">
+          <p className="text-[9.5px] sm:text-[11px] text-black leading-tight mt-0.5">
             Email : <a href={`mailto:${email}`} className="text-blue-700 underline font-medium">{email}</a> Website : <span className="font-normal">{website}</span>
           </p>
-          <p className="text-[10px] sm:text-[11.5px] font-normal text-black">
+          <p className="text-[9.5px] sm:text-[11px] font-normal text-black leading-tight mt-0.5">
             {kontak}
           </p>
         </div>
 
-        {/* Right: Invisible balance spacer of equal width so the text is perfectly centered across the page */}
-        <div className="shrink-0 w-24 sm:w-28 hidden sm:block" aria-hidden="true"></div>
+        {/* Right: Invisible balance spacer of equal width so the text is mathematically centered */}
+        <div className="shrink-0 w-20 sm:w-22 hidden sm:block" aria-hidden="true"></div>
       </div>
 
-      {/* Official Indonesian Double Border: Thick Line (3.5px) + Space (2px) + Thin Line (1px) */}
+      {/* Official Indonesian Double Border: Thick Line (3px) + Space (2px) + Thin Line (1px) */}
       <div 
-        className="w-full mt-2 mb-2 print:mt-2 print:mb-2 block clear-both"
+        className="w-full mt-1.5 mb-1.5 print:mt-1 print:mb-1 block clear-both"
         style={{
           WebkitPrintColorAdjust: 'exact',
           printColorAdjust: 'exact',
         }}
       >
         <div 
-          className="w-full border-t-[3.5px] border-black print:border-black"
+          className="w-full border-t-[3px] border-black print:border-black"
           style={{
-            borderTop: '3.5px solid #000000',
+            borderTop: '3px solid #000000',
             height: '0px',
             marginBottom: '2px',
           }}
