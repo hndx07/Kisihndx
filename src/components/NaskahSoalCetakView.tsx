@@ -159,7 +159,7 @@ export const NaskahSoalCetakView: React.FC<NaskahSoalCetakViewProps> = ({
         <KopDokumenResmi identitas={identitas} className="mb-2" />
 
         {/* Sub-Header Judul Naskah Soal */}
-        <div className="text-center py-2 border-b border-slate-300 mb-2">
+        <div className="text-center py-2 border-b border-slate-800 print:border-black mb-3">
           <h2 className="text-sm sm:text-base font-black tracking-wider uppercase text-slate-900 leading-tight">
             NASKAH SOAL {identitas.namaJenjangTesLengkap.toUpperCase()}
           </h2>

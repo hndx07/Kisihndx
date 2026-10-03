@@ -68,9 +68,28 @@ export const KopDokumenResmi: React.FC<KopDokumenResmiProps> = ({
       </div>
 
       {/* Official Indonesian Double Border: Thick Line (3.5px) + Space (2px) + Thin Line (1px) */}
-      <div className="w-full space-y-[2px] mt-1.5 print:mt-1">
-        <div className="h-[3.5px] bg-black w-full print:h-[3px]"></div>
-        <div className="h-[1px] bg-black w-full"></div>
+      <div 
+        className="w-full mt-2 mb-2 print:mt-2 print:mb-2 block clear-both"
+        style={{
+          WebkitPrintColorAdjust: 'exact',
+          printColorAdjust: 'exact',
+        }}
+      >
+        <div 
+          className="w-full border-t-[3.5px] border-black print:border-black"
+          style={{
+            borderTop: '3.5px solid #000000',
+            height: '0px',
+            marginBottom: '2px',
+          }}
+        />
+        <div 
+          className="w-full border-t-[1px] border-black print:border-black"
+          style={{
+            borderTop: '1px solid #000000',
+            height: '0px',
+          }}
+        />
       </div>
     </div>
   );
