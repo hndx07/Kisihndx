@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IdentitasSekolahGuru, DataMasterItem, DataSoalItem, KartuSoalValidation } from '../types';
 import { KurikulumMerdekaLogo } from './Logos';
 import { MediaStimulusRenderer } from './MediaStimulusRenderer';
+import { KopDokumenResmi } from './KopDokumenResmi';
 import { ArrowLeft, Printer, ChevronLeft, ChevronRight, Upload, Sparkles, CheckSquare, Layers } from 'lucide-react';
 
 interface KartuSoalViewProps {
@@ -86,12 +87,12 @@ export const KartuSoalView: React.FC<KartuSoalViewProps> = ({
           isBatch ? 'break-after-page mb-8' : ''
         }`}
       >
+        {/* 1. Official School Header (KOP RESMI) */}
+        <KopDokumenResmi identitas={identitas} className="mb-2.5" />
+
         {/* Card Header matching Kurikulum Merdeka */}
-        <div className="flex items-start justify-between pb-3 border-b-2 border-slate-900 gap-4">
+        <div className="flex items-center justify-between pb-2 border-b-2 border-slate-900 gap-4">
           <div>
-            <div className="text-[10px] font-bold text-blue-800 uppercase tracking-wider mb-0.5">
-              {identitas.namaSekolah}
-            </div>
             <h2 className="text-base font-black tracking-tight uppercase leading-tight text-slate-900">
               KARTU SOAL {identitas.namaJenjangTesLengkap.toUpperCase()}
             </h2>
@@ -100,10 +101,10 @@ export const KartuSoalView: React.FC<KartuSoalViewProps> = ({
             </div>
           </div>
           <div className="shrink-0 flex items-center gap-3">
-            <KurikulumMerdekaLogo height={36} />
-            <div className="w-11 h-11 bg-amber-400 border-2 border-amber-600 rounded-lg flex flex-col items-center justify-center font-black text-amber-950 shadow-2xs">
-              <span className="text-[9px] font-bold leading-none">NO</span>
-              <span className="text-base leading-none">{soal.no}</span>
+            <KurikulumMerdekaLogo height={32} />
+            <div className="w-10 h-10 bg-amber-400 border-2 border-amber-600 rounded-lg flex flex-col items-center justify-center font-black text-amber-950 shadow-2xs">
+              <span className="text-[8.5px] font-bold leading-none">NO</span>
+              <span className="text-sm font-black leading-none">{soal.no}</span>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IdentitasSekolahGuru, DataMasterItem, DataSoalItem } from '../types';
 import { KurikulumMerdekaLogo, DeepLearningLogo } from './Logos';
+import { KopDokumenResmi } from './KopDokumenResmi';
 import { ArrowLeft, Printer, Upload, FileSpreadsheet, Eye, Layers } from 'lucide-react';
 import { exportToExcel } from '../utils/excelHelper';
 
@@ -152,23 +153,23 @@ export const KisiKisiView: React.FC<KisiKisiViewProps> = ({
 
       {/* Official Kisi-Kisi Document (Matches Page 12) */}
       <div className="bg-white border-2 border-slate-900 rounded-lg p-6 shadow-xs text-xs font-sans text-slate-900 max-w-5xl mx-auto">
+        {/* 1. Official School Header (KOP RESMI) */}
+        <KopDokumenResmi identitas={identitas} className="mb-3" />
+
         {/* Document Header */}
-        <div className="flex items-center justify-between pb-4 border-b-2 border-slate-900 gap-4">
+        <div className="flex items-center justify-between pb-3 border-b-2 border-slate-900 gap-4">
           <div className="flex-1">
             <h1 className="text-base sm:text-lg font-black tracking-tight uppercase leading-tight text-slate-900">
               KISI-KISI DAN SOAL {identitas.namaJenjangTesLengkap.toUpperCase()}
             </h1>
-            <h2 className="text-sm font-bold text-slate-800 tracking-wide mt-0.5">
-              {identitas.namaSekolah.toUpperCase()}
-            </h2>
-            <p className="text-xs font-semibold text-slate-600">
-              TAHUN AJARAN {identitas.tahunAjaran}
+            <p className="text-xs font-semibold text-slate-600 mt-0.5">
+              TAHUN AJARAN {identitas.tahunAjaran} · {identitas.mataPelajaran}
             </p>
           </div>
 
-          <div className="flex flex-col items-end gap-1.5 shrink-0">
-            <KurikulumMerdekaLogo height={38} />
-            <DeepLearningLogo height={32} />
+          <div className="flex items-center gap-2 shrink-0">
+            <KurikulumMerdekaLogo height={34} />
+            <DeepLearningLogo height={28} />
           </div>
         </div>
 

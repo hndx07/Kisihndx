@@ -1,6 +1,7 @@
 import React from 'react';
 import { IdentitasSekolahGuru, JenjangTes } from '../types';
-import { ArrowLeft, Save, Upload, FileSpreadsheet, Check, School, UserCheck } from 'lucide-react';
+import { KopDokumenResmi } from './KopDokumenResmi';
+import { ArrowLeft, Save, Upload, FileSpreadsheet, Check, School, UserCheck, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface IdentitasGuruViewProps {
   identitas: IdentitasSekolahGuru;
@@ -17,6 +18,7 @@ export const IdentitasGuruView: React.FC<IdentitasGuruViewProps> = ({
 }) => {
   const [formData, setFormData] = React.useState<IdentitasSekolahGuru>(identitas);
   const [savedToast, setSavedToast] = React.useState(false);
+  const [showKopConfig, setShowKopConfig] = React.useState(false);
 
   React.useEffect(() => {
     setFormData(identitas);
@@ -90,6 +92,112 @@ export const IdentitasGuruView: React.FC<IdentitasGuruViewProps> = ({
           <span className="font-semibold">Data Identitas Sekolah & Guru berhasil disimpan dan disinkronkan ke seluruh aplikasi!</span>
         </div>
       )}
+
+      {/* Live Preview Kop Dokumen Siap Cetak (Sama persis dengan contoh resmi) */}
+      <div className="bg-white rounded-xl shadow-xs border-2 border-slate-900 p-4 sm:p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-2 mb-3 border-b border-slate-200">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span className="font-black text-xs text-slate-900 uppercase tracking-wide">
+              Pratinjau Kop Dokumen Siap Cetak (Resmi Sesuai Contoh)
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowKopConfig(!showKopConfig)}
+            className="text-[11px] font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1 bg-blue-50 px-2.5 py-1 rounded border border-blue-200 transition-colors cursor-pointer"
+          >
+            <span>{showKopConfig ? 'Sembunyikan Pengaturan Kop' : 'Atur Detail Kop Surat'}</span>
+            {showKopConfig ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
+        </div>
+
+        {/* The Live Rendered Kop Component */}
+        <div className="bg-white p-3 sm:p-5 rounded-lg border border-slate-300 shadow-2xs overflow-x-auto">
+          <KopDokumenResmi identitas={formData} />
+        </div>
+
+        {/* Expandable Kop Configuration Settings */}
+        {showKopConfig && (
+          <div className="mt-4 pt-4 border-t border-slate-200 space-y-3 bg-slate-50 p-3.5 rounded-lg text-xs">
+            <h4 className="font-bold text-slate-800 mb-2">Detail Informasi Kop Dokumen Resmi:</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Instansi Atas Baris 1:</label>
+                <input
+                  type="text"
+                  value={formData.instansiAtas1 || 'MAJLIS PENDIDIKAN DASAR DAN MENENGAH'}
+                  onChange={(e) => handleChange('instansiAtas1', e.target.value)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs"
+                />
+              </div>
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Instansi Atas Baris 2:</label>
+                <input
+                  type="text"
+                  value={formData.instansiAtas2 || 'DAERAH MUHAMMADIYAH BATANG'}
+                  onChange={(e) => handleChange('instansiAtas2', e.target.value)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs"
+                />
+              </div>
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Status Akreditasi:</label>
+                <input
+                  type="text"
+                  value={formData.akreditasi || 'T E R A K R E D I T A S I  “A”'}
+                  onChange={(e) => handleChange('akreditasi', e.target.value)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs"
+                />
+              </div>
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Alamat Lengkap Sekolah:</label>
+                <input
+                  type="text"
+                  value={formData.alamatSekolah || 'Jl. Bawang-Sukorejo Km 01 Ds. Jlamprang Kec. Bawang Kab. Batang.'}
+                  onChange={(e) => handleChange('alamatSekolah', e.target.value)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs"
+                />
+              </div>
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Email Sekolah:</label>
+                <input
+                  type="text"
+                  value={formData.emailSekolah || 'smkmuhbawang@gmail.com'}
+                  onChange={(e) => handleChange('emailSekolah', e.target.value)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs"
+                />
+              </div>
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Website Sekolah:</label>
+                <input
+                  type="text"
+                  value={formData.websiteSekolah || 'www.smkmuhiba.sch.id'}
+                  onChange={(e) => handleChange('websiteSekolah', e.target.value)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="font-semibold text-slate-700 block mb-1">Kontak Telp, Fax & Kode Pos:</label>
+                <input
+                  type="text"
+                  value={formData.kontakSekolah || 'Kode Pos. 51274 Telp. (0285) 4486909 Fax. (0285) 4486899'}
+                  onChange={(e) => handleChange('kontakSekolah', e.target.value)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label className="font-semibold text-slate-700 block mb-1">URL Logo Sekolah (Gambar Resmi):</label>
+                <input
+                  type="text"
+                  value={formData.logoUrl || 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgzWdtCjCcX2chJuhLX_26N5MmkVK-1SkyO7kgXznQQJPQa6_TB_EJzD1WWpztg7yX9RBRE7rGn0t2Z3FdG06mwwT6pQix8t6vnlcOBm_EgGl9z0jeJemJkppP0KIIjkXGksQvaCLh2dz-gOF6a2H213VQBL6Am8Elhmd76OOnphogk-EoTTbkYbg0TQJhv/s512/34690.png'}
+                  onChange={(e) => handleChange('logoUrl', e.target.value)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-slate-300 rounded text-xs font-mono"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Main Table Form (Matching Style of Page 2 in screenshot) */}
       <div className="bg-white rounded-xl shadow-md border-2 border-slate-800 overflow-hidden">

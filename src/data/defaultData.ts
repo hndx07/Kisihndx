@@ -1,7 +1,15 @@
 import { IdentitasSekolahGuru, DataMasterItem, DataSoalItem } from '../types';
 
 export const defaultIdentitas: IdentitasSekolahGuru = {
-  namaSekolah: 'SMK Muhammadiyah Bawang',
+  namaSekolah: 'SMK MUHAMMADIYAH BAWANG',
+  instansiAtas1: 'MAJLIS PENDIDIKAN DASAR DAN MENENGAH',
+  instansiAtas2: 'DAERAH MUHAMMADIYAH BATANG',
+  akreditasi: 'T E R A K R E D I T A S I  “A”',
+  alamatSekolah: 'Jl. Bawang-Sukorejo Km 01 Ds. Jlamprang Kec. Bawang Kab. Batang.',
+  emailSekolah: 'smkmuhbawang@gmail.com',
+  websiteSekolah: 'www.smkmuhiba.sch.id',
+  kontakSekolah: 'Kode Pos. 51274 Telp. (0285) 4486909 Fax. (0285) 4486899',
+  logoUrl: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgzWdtCjCcX2chJuhLX_26N5MmkVK-1SkyO7kgXznQQJPQa6_TB_EJzD1WWpztg7yX9RBRE7rGn0t2Z3FdG06mwwT6pQix8t6vnlcOBm_EgGl9z0jeJemJkppP0KIIjkXGksQvaCLh2dz-gOF6a2H213VQBL6Am8Elhmd76OOnphogk-EoTTbkYbg0TQJhv/s512/34690.png',
   kepalaSekolah: 'Imam Pamungkas, S.Pd., M.Si.',
   nbmKepalaSekolah: '-',
   nipKepalaSekolah: '-',

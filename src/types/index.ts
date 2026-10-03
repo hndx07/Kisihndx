@@ -25,6 +25,14 @@ export type LevelKognitif = 'L1 (LOTS)' | 'L2 (MOTS)' | 'L3 (HOTS)';
 
 export interface IdentitasSekolahGuru {
   namaSekolah: string;
+  instansiAtas1?: string;
+  instansiAtas2?: string;
+  akreditasi?: string;
+  alamatSekolah?: string;
+  emailSekolah?: string;
+  websiteSekolah?: string;
+  kontakSekolah?: string;
+  logoUrl?: string;
   kepalaSekolah: string;
   nbmKepalaSekolah: string;
   nipKepalaSekolah: string;

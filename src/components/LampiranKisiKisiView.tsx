@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IdentitasSekolahGuru, DataSoalItem } from '../types';
 import { KurikulumMerdekaLogo } from './Logos';
 import { MediaStimulusRenderer } from './MediaStimulusRenderer';
+import { KopDokumenResmi } from './KopDokumenResmi';
 import { ArrowLeft, Printer, Upload, FileSpreadsheet, KeyRound, CheckCircle2 } from 'lucide-react';
 import { exportToExcel } from '../utils/excelHelper';
 
@@ -73,21 +74,24 @@ export const LampiranKisiKisiView: React.FC<LampiranKisiKisiViewProps> = ({
 
       {/* Official Lampiran Document (Matches Page 13) */}
       <div className="bg-white border-2 border-slate-900 rounded-lg p-6 shadow-xs text-xs font-sans text-slate-900 max-w-5xl mx-auto">
+        {/* 1. Official School Header (KOP RESMI) */}
+        <KopDokumenResmi identitas={identitas} className="mb-3" />
+
         {/* Document Header */}
-        <div className="flex items-center justify-between pb-4 border-b-2 border-slate-900 gap-4">
+        <div className="flex items-center justify-between pb-3 border-b-2 border-slate-900 gap-4">
           <div className="flex-1">
             <h1 className="text-base font-black tracking-tight uppercase leading-tight text-slate-900">
               LAMPIRAN KISI-KISI : INSTRUMEN / BUTIR SOAL
             </h1>
             <h2 className="text-xs sm:text-sm font-bold text-slate-800 tracking-wide mt-0.5">
-              {identitas.namaJenjangTesLengkap.toUpperCase()} · {identitas.namaSekolah.toUpperCase()}
+              {identitas.namaJenjangTesLengkap.toUpperCase()}
             </h2>
             <p className="text-[11px] font-semibold text-slate-600">
-              TAHUN AJARAN {identitas.tahunAjaran}
+              TAHUN AJARAN {identitas.tahunAjaran} · {identitas.mataPelajaran}
             </p>
           </div>
 
-          <KurikulumMerdekaLogo height={36} />
+          <KurikulumMerdekaLogo height={34} />
         </div>
 
         {/* Short Metadata Header */}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IdentitasSekolahGuru, DataSoalItem } from '../types';
 import { KurikulumMerdekaLogo, DeepLearningLogo } from './Logos';
 import { MediaStimulusRenderer } from './MediaStimulusRenderer';
+import { KopDokumenResmi } from './KopDokumenResmi';
 import { 
   ArrowLeft, 
   Printer, 
@@ -154,27 +155,16 @@ export const NaskahSoalCetakView: React.FC<NaskahSoalCetakViewProps> = ({
 
       {/* ================= Printable Document Canvas ================= */}
       <div className="bg-white border-2 border-slate-900 rounded-lg p-6 sm:p-8 shadow-xs text-slate-900 max-w-5xl mx-auto print:p-2 print:border-none print:shadow-none print:max-w-none">
-        {/* 1. Official Exam Header (KOP NASKAH UJIAN RESMI) */}
-        <div className="border-b-4 border-double border-slate-900 pb-3 text-center">
-          <div className="flex items-center justify-between gap-4">
-            <div className="hidden sm:block w-16"></div>
-            <div className="flex-1">
-              <h3 className="font-bold text-xs uppercase tracking-wider text-slate-700">
-                PEMERINTAH DAERAH / YAYASAN PENDIDIKAN
-              </h3>
-              <h1 className="text-base sm:text-lg font-black tracking-tight uppercase text-slate-900">
-                {identitas.namaSekolah}
-              </h1>
-              <div className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-slate-800 mt-0.5">
-                NASKAH SOAL {identitas.namaJenjangTesLengkap.toUpperCase()}
-              </div>
-              <div className="text-[11px] font-semibold text-slate-600 mt-0.5">
-                TAHUN AJARAN {identitas.tahunAjaran}
-              </div>
-            </div>
-            <div className="shrink-0 flex items-center gap-2">
-              <KurikulumMerdekaLogo height={32} />
-            </div>
+        {/* 1. Official School Header (KOP DOKUMEN RESMI SAMA PERSIS DENGAN CONTOH) */}
+        <KopDokumenResmi identitas={identitas} className="mb-2" />
+
+        {/* Sub-Header Judul Naskah Soal */}
+        <div className="text-center py-2 border-b border-slate-300 mb-2">
+          <h2 className="text-sm sm:text-base font-black tracking-wider uppercase text-slate-900 leading-tight">
+            NASKAH SOAL {identitas.namaJenjangTesLengkap.toUpperCase()}
+          </h2>
+          <div className="text-[11px] sm:text-xs font-bold uppercase tracking-wide text-slate-700 mt-0.5">
+            TAHUN AJARAN {identitas.tahunAjaran}
           </div>
         </div>
 
